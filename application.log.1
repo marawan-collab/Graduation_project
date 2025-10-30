@@ -1,0 +1,81 @@
+2025-05-25 20:26:20,852 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 20:28:27,069 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 22 (Username: <script>alert('XSS3')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 20:49:38,324 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 20:50:47,185 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 24 (Username: <script>alert('XSS4')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-10-30 15:49:42,646 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
+2025-10-30 15:49:42,667 ERROR: Error details: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
+2025-10-30 15:51:02,138 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
+2025-10-30 15:51:02,144 ERROR: Error details: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
+2025-10-30 15:54:28,419 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
+2025-10-30 15:54:28,430 ERROR: Error details: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
+2025-10-30 16:09:44,481 INFO: Action: register_success, User: Adham, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:09:44,483 INFO: Redirecting registered user Adham to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
+2025-10-30 16:09:44,509 INFO: Accessing QR page for user: Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
+2025-10-30 16:09:44,586 INFO: Generating QR code for user: Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
+2025-10-30 16:09:44,599 INFO: Generated TOTP URI for Adham: otpauth://totp/SecureDocs:Adham?secret=5SO3FX5FVSIO5QJKMAG52R5R3AJNUESJ&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
+2025-10-30 16:09:45,226 INFO: Action: qr_code_success, User: Adham, Details: Generated QR code for 2FA for user Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:09:45,226 INFO: Successfully generated and sending QR code image for user Adham. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
+2025-10-30 16:10:36,364 INFO: Action: login_manual_password_success, User: Adham, Details: Password verified for user Adham. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:10:43,450 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:10:52,148 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:11:10,241 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:21:29,220 INFO: Action: register_success, User: warshan, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:21:29,221 INFO: Redirecting registered user warshan to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
+2025-10-30 16:21:29,259 INFO: Accessing QR page for user: warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
+2025-10-30 16:21:29,369 INFO: Generating QR code for user: warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
+2025-10-30 16:21:29,391 INFO: Generated TOTP URI for warshan: otpauth://totp/SecureDocs:warshan?secret=6GQM3IY655AIWTFCSQBPGLLFAMBLBJRB&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
+2025-10-30 16:21:29,449 INFO: Action: qr_code_success, User: warshan, Details: Generated QR code for 2FA for user warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:21:29,452 INFO: Successfully generated and sending QR code image for user warshan. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
+2025-10-30 16:21:45,930 INFO: Action: login_manual_password_success, User: warshan, Details: Password verified for user warshan. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:21:55,008 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:22:19,713 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:22:38,993 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:30:43,099 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:31:14,166 INFO: Action: login_manual_password_success, User: warshan, Details: Password verified for user warshan. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:32:09,548 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:33:12,082 INFO: Action: register_success, User: kareem, Details: User registered successfully as doctor. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:33:12,083 INFO: Redirecting registered user kareem to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
+2025-10-30 16:33:12,133 INFO: Accessing QR page for user: kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
+2025-10-30 16:33:12,282 INFO: Generating QR code for user: kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
+2025-10-30 16:33:12,301 INFO: Generated TOTP URI for kareem: otpauth://totp/SecureDocs:kareem?secret=56N2PHQBBRGCAAAD5KYP4BJROHX6HTIS&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
+2025-10-30 16:33:12,367 INFO: Action: qr_code_success, User: kareem, Details: Generated QR code for 2FA for user kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:33:12,368 INFO: Successfully generated and sending QR code image for user kareem. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
+2025-10-30 16:33:40,386 INFO: Action: login_manual_password_success, User: kareem, Details: Password verified for user kareem. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:34:12,045 INFO: Action: login_manual_2fa_failed, User: kareem, Details: User kareem failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:34:42,612 INFO: Action: login_manual_2fa_failed, User: kareem, Details: User kareem failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:54:05,556 ERROR: Error in registration process: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
+2025-10-30 16:54:05,603 ERROR: Error details: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+                   ^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
+2025-10-30 16:54:47,802 INFO: Action: register_success, User: hossam, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
+2025-10-30 16:54:47,805 INFO: Redirecting registered user hossam to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
+2025-10-30 16:54:47,835 INFO: Accessing QR page for user: hossam [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
