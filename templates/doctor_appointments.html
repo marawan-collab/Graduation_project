@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Appointments - Secure Health{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Appointments</h1>
+        <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option value="">All Statuses</option>
+                        <option value="scheduled" {% if request.args.get('status') == 'scheduled' %}selected{% endif %}>Scheduled</option>
+                        <option value="completed" {% if request.args.get('status') == 'completed' %}selected{% endif %}>Completed</option>
+                        <option value="cancelled" {% if request.args.get('status') == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                        <option value="no_show" {% if request.args.get('status') == 'no_show' %}selected{% endif %}>No Show</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" value="{{ request.args.get('date', '') }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="patient" class="form-label">Patient</label>
+                    <input type="text" class="form-control" id="patient" name="patient" placeholder="Search by patient name" value="{{ request.args.get('patient', '') }}">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    <a href="{{ url_for('doctor_appointments') }}" class="btn btn-secondary">Clear Filters</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Appointments List -->
+    <div class="card">
+        <div class="card-body">
+            {% if appointments %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Patient</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                                <th>Blood Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appt in appointments %}
+                                <tr>
+                                    <td>
+                                        {{ appt.date.strftime('%B %d, %Y') }}<br>
+                                        <small class="text-muted">{{ appt.date.strftime('%I:%M %p') }}</small>
+                                    </td>
+                                    <td>
+                                        {{ appt.patient_name }}<br>
+                                        <small class="text-muted">{{ appt.patient_phone }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ appt.status_color }}">{{ appt.status|title }}</span>
+                                    </td>
+                                    <td>{{ appt.reason }}</td>
+                                    <td>{{ appt.blood_type }}</td>
+                                    <td>
+                                        <form action="{{ url_for('update_appointment', appointment_id=appt.id) }}" method="POST" class="d-inline">
+                                            <select name="status" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()">
+                                                <option value="scheduled" {% if appt.status == 'scheduled' %}selected{% endif %}>Scheduled</option>
+                                                <option value="completed" {% if appt.status == 'completed' %}selected{% endif %}>Completed</option>
+                                                <option value="cancelled" {% if appt.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                                                <option value="no_show" {% if appt.status == 'no_show' %}selected{% endif %}>No Show</option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted text-center">No appointments found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 
