@@ -1,0 +1,5 @@
+flask_session/
+.env
+venv/
+cert.pem
+key.pem
