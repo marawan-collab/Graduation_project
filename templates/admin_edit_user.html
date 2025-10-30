@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Edit User - Admin{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Edit User</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('admin_edit_user', user_id=user.id) }}">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ user.phone }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="date_of_birth" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" value="{{ user.date_of_birth }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Male</option>
+                                <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Female</option>
+                                <option value="other" {% if user.gender == 'other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="blood_type" class="form-label">Blood Type</label>
+                            <select class="form-select" id="blood_type" name="blood_type" required>
+                                <option value="">Select Blood Type</option>
+                                <option value="A+" {% if user.blood_type == 'A+' %}selected{% endif %}>A+</option>
+                                <option value="A-" {% if user.blood_type == 'A-' %}selected{% endif %}>A-</option>
+                                <option value="B+" {% if user.blood_type == 'B+' %}selected{% endif %}>B+</option>
+                                <option value="B-" {% if user.blood_type == 'B-' %}selected{% endif %}>B-</option>
+                                <option value="AB+" {% if user.blood_type == 'AB+' %}selected{% endif %}>AB+</option>
+                                <option value="AB-" {% if user.blood_type == 'AB-' %}selected{% endif %}>AB-</option>
+                                <option value="O+" {% if user.blood_type == 'O+' %}selected{% endif %}>O+</option>
+                                <option value="O-" {% if user.blood_type == 'O-' %}selected{% endif %}>O-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="emergency_contact" class="form-label">Emergency Contact Name</label>
+                            <input type="text" class="form-control" id="emergency_contact" name="emergency_contact" value="{{ user.emergency_contact }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="emergency_phone" class="form-label">Emergency Contact Phone</label>
+                            <input type="tel" class="form-control" id="emergency_phone" name="emergency_phone" value="{{ user.emergency_phone }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="">Select Role</option>
+                                <option value="patient" {% if user.role == 'patient' %}selected{% endif %}>Patient</option>
+                                <option value="doctor" {% if user.role == 'doctor' %}selected{% endif %}>Doctor</option>
+                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row doctor-fields" style="display: {% if user.role == 'doctor' %}flex{% else %}none{% endif %};">
+                        <div class="col-md-6 mb-3">
+                            <label for="specialization" class="form-label">Specialization</label>
+                            <input type="text" class="form-control" id="specialization" name="specialization" value="{{ user.specialization }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="license_number" class="form-label">License Number</label>
+                            <input type="text" class="form-control" id="license_number" name="license_number" value="{{ user.license_number }}">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('role').addEventListener('change', function() {
+    const doctorFields = document.querySelector('.doctor-fields');
+    const specialization = document.getElementById('specialization');
+    const licenseNumber = document.getElementById('license_number');
+    
+    if (this.value === 'doctor') {
+        doctorFields.style.display = 'flex';
+        specialization.required = true;
+        licenseNumber.required = true;
+    } else {
+        doctorFields.style.display = 'none';
+        specialization.required = false;
+        licenseNumber.required = false;
+    }
+});
+</script>
+{% endblock %} 

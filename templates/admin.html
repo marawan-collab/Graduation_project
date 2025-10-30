@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Admin Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>All Users</h2>
+            </div>
+            <div class="card-body">
+                <form method="GET" action="{{ url_for('admin_dashboard') }}" class="mb-3">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" name="user_search" placeholder="Search users..." value="{{ request.args.get('user_search', '') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" name="user_role">
+                                <option value="all" {% if request.args.get('user_role') == 'all' %}selected{% endif %}>All Roles</option>
+                                <option value="admin" {% if request.args.get('user_role') == 'admin' %}selected{% endif %}>Admins</option>
+                                <option value="user" {% if request.args.get('user_role') == 'user' %}selected{% endif %}>Users</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Apply</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user[0] }}</td>
+                                <td>{{ user[1] }}</td>
+                                <td>{{ user[2] }}</td>
+                                <td>{{ user[3] }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('admin_edit_user', user_id=user[0]) }}" class="btn btn-primary btn-sm">Edit</a>
+                                         <form action="{{ url_for('admin_delete_user', user_id=user[0]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete user {{ user[1] }} and all their files?');" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{{ url_for('admin_add_user') }}" class="btn btn-success btn-sm mt-3">Add New User</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>All Files</h2>
+            </div>
+            <div class="card-body">
+                <form method="GET" action="{{ url_for('admin_dashboard') }}" class="mb-3">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" name="file_search" placeholder="Search files..." value="{{ request.args.get('file_search', '') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="file_sort">
+                                <option value="newest" {% if request.args.get('file_sort') == 'newest' %}selected{% endif %}>Newest First</option>
+                                <option value="oldest" {% if request.args.get('file_sort') == 'oldest' %}selected{% endif %}>Oldest First</option>
+                                <option value="name_asc" {% if request.args.get('file_sort') == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                                <option value="name_desc" {% if request.args.get('file_sort') == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="file_filter">
+                                <option value="all" {% if request.args.get('file_filter') == 'all' %}selected{% endif %}>All Files</option>
+                                <option value="today" {% if request.args.get('file_filter') == 'today' %}selected{% endif %}>Today</option>
+                                <option value="week" {% if request.args.get('file_filter') == 'week' %}selected{% endif %}>This Week</option>
+                                <option value="month" {% if request.args.get('file_filter') == 'month' %}selected{% endif %}>This Month</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Apply</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Original Filename</th>
+                                <th>Uploaded by</th>
+                                <th>Upload Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for file in files %}
+                            <tr>
+                                <td>{{ file[0] }}</td>
+                                <td>{{ file[1] }}</td>
+                                <td>{{ file[2] }}</td>
+                                <td>{{ file[3] }}</td>
+                                <td>
+                                    <form action="{{ url_for('admin_delete_file', file_id=file[0]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete file {{ file[1] }}?');">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>System Logs</h2>
+            </div>
+            <div class="card-body">
+                <p>View a detailed log of all system activities.</p>
+                <a href="{{ url_for('admin_logs') }}" class="btn btn-primary">View Admin Logs</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 

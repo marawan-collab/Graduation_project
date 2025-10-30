@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile - Secure Health{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-photo {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary-color);
+        margin-bottom: 1rem;
+    }
+    .photo-preview {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary-color);
+        margin-bottom: 1rem;
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Edit Profile</h2>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="{{ url_for('edit_profile') }}" enctype="multipart/form-data">
+                        <div class="text-center mb-4">
+                            <img src="{{ url_for('get_profile_photo', username=session.username) }}"
+                                 alt="Profile Photo"
+                                 class="profile-photo"
+                                 id="currentPhoto"
+                                 onerror="this.src='{{ url_for('static', filename='images/default_profile.jpg') }}'">
+                            <img src="" alt="Preview" class="photo-preview" id="photoPreview">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*">
+                            <div class="form-text">Upload a square photo (recommended size: 300x300 pixels)</div>
+                            <button type="button" class="btn btn-danger mt-2" id="removePhotoBtn">
+                                <i class="fas fa-trash-alt me-2"></i>Remove Profile Photo
+                            </button>
+                            <input type="hidden" name="remove_photo" id="removePhotoInput" value="false">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                       value="{{ user.first_name }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                       value="{{ user.last_name }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   value="{{ session.username }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   value="{{ user.email }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone"
+                                   value="{{ user.phone }}" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth"
+                                       value="{{ user.date_of_birth }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select class="form-select" id="gender" name="gender" required>
+                                    <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Male</option>
+                                    <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Female</option>
+                                    <option value="other" {% if user.gender == 'other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="blood_type" class="form-label">Blood Type</label>
+                                <select class="form-select" id="blood_type" name="blood_type" required>
+                                    <option value="A+" {% if user.blood_type == 'A+' %}selected{% endif %}>A+</option>
+                                    <option value="A-" {% if user.blood_type == 'A-' %}selected{% endif %}>A-</option>
+                                    <option value="B+" {% if user.blood_type == 'B+' %}selected{% endif %}>B+</option>
+                                    <option value="B-" {% if user.blood_type == 'B-' %}selected{% endif %}>B-</option>
+                                    <option value="AB+" {% if user.blood_type == 'AB+' %}selected{% endif %}>AB+</option>
+                                    <option value="AB-" {% if user.blood_type == 'AB-' %}selected{% endif %}>AB-</option>
+                                    <option value="O+" {% if user.blood_type == 'O+' %}selected{% endif %}>O+</option>
+                                    <option value="O-" {% if user.blood_type == 'O-' %}selected{% endif %}>O-</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Emergency Contact</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="emergency_contact" class="form-label">Contact Name</label>
+                                        <input type="text" class="form-control" id="emergency_contact" name="emergency_contact"
+                                               value="{{ user.emergency_contact }}" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="emergency_phone" class="form-label">Contact Phone</label>
+                                        <input type="tel" class="form-control" id="emergency_phone" name="emergency_phone"
+                                               value="{{ user.emergency_phone }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Change Password</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="current_password" class="form-label">Current Password</label>
+                                    <input type="password" class="form-control" id="current_password"
+                                           name="current_password" required>
+                                    <div class="form-text">Enter your current password to confirm changes</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="new_password" class="form-label">New Password (Optional)</label>
+                                    <input type="password" class="form-control" id="new_password"
+                                           name="new_password">
+                                    <div class="form-text">Leave blank if you don't want to change your password</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="confirm_password" class="form-label">Confirm New Password</label>
+                                    <input type="password" class="form-control" id="confirm_password"
+                                           name="confirm_password">
+                                    <div class="form-text">Must match the new password if provided</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('photo').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('photoPreview');
+            const currentPhoto = document.getElementById('currentPhoto');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            currentPhoto.style.display = 'none';
+            document.getElementById('removePhotoInput').value = 'false';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('removePhotoBtn').addEventListener('click', function() {
+    const currentPhoto = document.getElementById('currentPhoto');
+    const photoPreview = document.getElementById('photoPreview');
+    const removePhotoInput = document.getElementById('removePhotoInput');
+
+    if (confirm('Are you sure you want to remove your profile photo?')) {
+        currentPhoto.src = '{{ url_for("static", filename="images/default_profile.jpg") }}';
+        photoPreview.style.display = 'none';
+        currentPhoto.style.display = 'block';
+        removePhotoInput.value = 'true';
+    }
+});
+
+document.getElementById('new_password').addEventListener('input', function() {
+    const newPassword = this.value;
+    const confirmPassword = document.getElementById('confirm_password');
+
+    if (newPassword) {
+        confirmPassword.required = true;
+
+        const hasLetter = /[A-Za-z]/.test(newPassword);
+        const hasNumber = /\d/.test(newPassword);
+        const hasSpecial = /[@$!%*#?&]/.test(newPassword);
+        const isLongEnough = newPassword.length >= 8;
+
+        if (!isLongEnough || !hasLetter || !hasNumber || !hasSpecial) {
+            this.setCustomValidity('Password must be at least 8 characters long and contain letters, numbers, and special characters');
+        } else {
+            this.setCustomValidity('');
+        }
+    } else {
+        confirmPassword.required = false;
+        confirmPassword.value = '';
+    }
+});
+
+document.getElementById('confirm_password').addEventListener('input', function() {
+    const newPassword = document.getElementById('new_password').value;
+    if (this.value !== newPassword) {
+        this.setCustomValidity('Passwords do not match');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+</script>
+{% endblock %}
