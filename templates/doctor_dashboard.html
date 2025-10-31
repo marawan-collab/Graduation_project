@@ -4,6 +4,22 @@
 
 {% block content %}
 <div class="container py-4">
+    {% if signed_record_id %}
+    <div class="alert alert-success d-flex justify-content-between align-items-center" role="alert">
+        <div>
+            <i class="fas fa-check-circle me-2"></i>
+            Record signed successfully.
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('view_medical_record_signature', record_id=signed_record_id) }}" class="btn btn-sm btn-success">
+                <i class="fas fa-signature me-1"></i> View Signature
+            </a>
+            <a href="{{ url_for('download_medical_record_signature', record_id=signed_record_id) }}" class="btn btn-sm btn-outline-success">
+                <i class="fas fa-download me-1"></i> Download
+            </a>
+        </div>
+    </div>
+    {% endif %}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Doctor Dashboard</h1>
         <a href="{{ url_for('doctor_appointments') }}" class="btn btn-primary">
@@ -124,6 +140,7 @@
                                 <th>Diagnosis</th>
                                 <th>Treatment</th>
                                 <th>Blood Type</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,6 +151,14 @@
                                     <td>{{ record.diagnosis }}</td>
                                     <td>{{ record.treatment }}</td>
                                     <td>{{ record.blood_type }}</td>
+                                    <td>
+                                        {% if record.signed %}
+                                            <a href="{{ url_for('view_medical_record_signature', record_id=record.id) }}" class="btn btn-sm btn-success" title="Signed and verified">
+                                                <i class="fas fa-signature"></i>
+                                                <i class="fas fa-check ms-1"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -171,7 +196,10 @@
                     <label for="treatment" class="form-label">Treatment</label>
                     <textarea class="form-control" id="treatment" name="treatment" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Add Record</button>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary" name="action" value="add">Add Record</button>
+                    <button type="submit" class="btn btn-outline-success" name="action" value="sign_and_add">Sign & Add</button>
+                </div>
             </form>
         </div>
     </div>

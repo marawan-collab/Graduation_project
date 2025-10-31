@@ -178,6 +178,11 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save me-2"></i>Save Changes
                             </button>
+                            {% if session.role == 'doctor' %}
+                            <a href="{{ url_for('doctor_signed_records') }}" class="btn btn-success">
+                                <i class="fas fa-signature me-2"></i>View Signatures
+                            </a>
+                            {% endif %}
                             <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">
                                 <i class="fas fa-times me-2"></i>Cancel
                             </a>
@@ -241,15 +246,41 @@ document.getElementById('new_password').addEventListener('input', function() {
     } else {
         confirmPassword.required = false;
         confirmPassword.value = '';
+        this.setCustomValidity('');
+        confirmPassword.setCustomValidity('');
     }
 });
 
 document.getElementById('confirm_password').addEventListener('input', function() {
     const newPassword = document.getElementById('new_password').value;
-    if (this.value !== newPassword) {
+    if (this.value.trim() !== newPassword.trim()) {
         this.setCustomValidity('Passwords do not match');
     } else {
         this.setCustomValidity('');
+    }
+});
+
+// Final guard on submit to avoid stale validation states
+document.querySelector('form[action="{{ url_for('edit_profile') }}"]').addEventListener('submit', function(e) {
+    const newPassword = document.getElementById('new_password').value.trim();
+    const confirmPassword = document.getElementById('confirm_password').value.trim();
+    const confirmField = document.getElementById('confirm_password');
+
+    if (!newPassword && confirmPassword) {
+        // If confirm filled but new empty, clear confirm and continue
+        document.getElementById('confirm_password').value = '';
+        confirmField.setCustomValidity('');
+        return;
+    }
+
+    if (newPassword) {
+        if (newPassword !== confirmPassword) {
+            confirmField.setCustomValidity('Passwords do not match');
+            e.preventDefault();
+            confirmField.reportValidity();
+            return;
+        }
+        confirmField.setCustomValidity('');
     }
 });
 </script>

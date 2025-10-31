@@ -11,7 +11,7 @@
                     <h3 class="text-center">Register</h3>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url_for('register') }}" id="registerForm">
+                    <form method="POST" action="{{ url_for('register') }}" id="registerForm" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required
@@ -29,6 +29,35 @@
                                 <option value="doctor">Doctor</option>
                             </select>
                             <div class="form-text">Please select whether you are registering as a patient or a doctor.</div>
+                        </div>
+
+                        <div id="doctorFields" style="display: none;">
+                            <div class="mb-3">
+                                <label for="specialization" class="form-label">Specialization</label>
+                                <select class="form-select" id="specialization" name="specialization">
+                                    <option value="">Select specialization</option>
+                                    <option value="General Medicine">General Medicine</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Dermatology">Dermatology</option>
+                                    <option value="Pediatrics">Pediatrics</option>
+                                    <option value="Orthopedics">Orthopedics</option>
+                                    <option value="Neurology">Neurology</option>
+                                    <option value="Gynecology">Gynecology</option>
+                                    <option value="Ophthalmology">Ophthalmology</option>
+                                    <option value="ENT">ENT</option>
+                                    <option value="Psychiatry">Psychiatry</option>
+                                </select>
+                                <div class="form-text">Choose the most relevant field.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="license_number" class="form-label">Medical License Number</label>
+                                <input type="text" class="form-control" id="license_number" name="license_number" maxlength="50">
+                            </div>
+                            <div class="mb-3">
+                                <label for="doctor_id_image" class="form-label">Upload Government ID (image)</label>
+                                <input type="file" class="form-control" id="doctor_id_image" name="doctor_id_image" accept="image/*">
+                                <div class="form-text">Upload a clear photo of your ID to help verify your identity.</div>
+                            </div>
                         </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
@@ -54,6 +83,20 @@
 </div>
 
 <script>
+const roleSelect = document.getElementById('role');
+const doctorFields = document.getElementById('doctorFields');
+
+function toggleDoctorFields() {
+    if (roleSelect.value === 'doctor') {
+        doctorFields.style.display = 'block';
+    } else {
+        doctorFields.style.display = 'none';
+    }
+}
+
+roleSelect.addEventListener('change', toggleDoctorFields);
+toggleDoctorFields();
+
 document.getElementById('registerForm').addEventListener('submit', function(e) {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -63,14 +106,29 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
         e.preventDefault();
         alert('Passwords do not match!');
         return;
-            }
-            
+    }
+
     if (!role) {
         e.preventDefault();
         alert('Please select a role!');
         return;
     }
-    });
+
+    if (role === 'doctor') {
+        const specialization = document.getElementById('specialization').value;
+        const license = document.getElementById('license_number').value;
+        if (!specialization) {
+            e.preventDefault();
+            alert('Please choose your specialization.');
+            return;
+        }
+        if (!license) {
+            e.preventDefault();
+            alert('Please provide your medical license number.');
+            return;
+        }
+    }
+});
 </script>
 {% endblock %}
 

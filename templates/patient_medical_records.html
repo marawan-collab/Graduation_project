@@ -5,10 +5,13 @@
 {% block content %}
 <div class="container py-4">
     <div class="row mb-4">
-        <div class="col-12">
+        <div class="col-12 d-flex justify-content-between align-items-center">
             <h2 class="mb-0">
                 <i class="fas fa-file-medical text-primary me-2"></i>Medical Records
             </h2>
+            <a href="{{ url_for('patient_radiology') }}" class="btn btn-success">
+                <i class="fas fa-x-ray me-2"></i>Radiology
+            </a>
         </div>
     </div>
 
@@ -37,9 +40,15 @@
                             <td>{{ record.diagnosis or 'Not specified' }}</td>
                             <td>{{ record.treatment or 'Not specified' }}</td>
                             <td>
-                                <a href="{{ url_for('view_medical_record', record_id=record.id) }}" class="btn btn-sm btn-info">
+                                <a href="{{ url_for('view_medical_record', record_id=record.id) }}" class="btn btn-sm btn-info" title="View Record">
                                     <i class="fas fa-eye"></i>
                                 </a>
+                                {% if record.signed %}
+                                <a href="{{ url_for('view_medical_record_signature', record_id=record.id) }}" class="btn btn-sm btn-success" title="Signed and verified">
+                                    <i class="fas fa-signature"></i>
+                                    <i class="fas fa-check ms-1"></i>
+                                </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Record Signature{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Digital Signature</h5>
+    </div>
+    <div class="card-body">
+      {% if signed %}
+        <p><strong>Record ID:</strong> {{ record.id }}</p>
+        <p><strong>Signed By:</strong> Dr. {{ record.doctor_username }}</p>
+        <p><strong>Patient:</strong> {{ record.patient_username }}</p>
+        <p><strong>Signed At:</strong> {{ record.signature_time }}</p>
+        <p><strong>Record Hash (SHA-256):</strong> <code>{{ record.record_hash }}</code></p>
+        <div class="d-flex gap-2 mt-3">
+          <a class="btn btn-success" href="{{ url_for('download_medical_record_signature', record_id=record.id) }}">
+            <i class="fas fa-download me-2"></i>Download Signature
+          </a>
+          <a class="btn btn-outline-secondary" href="{{ url_for('home') }}">Close</a>
+        </div>
+      {% else %}
+        <div class="alert alert-warning mb-0">This record has not been signed.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
