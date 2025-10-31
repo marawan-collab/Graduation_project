@@ -1,61 +1,58 @@
-2025-10-30 16:54:47,953 INFO: Generating QR code for user: hossam [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:54:47,998 INFO: Generated TOTP URI for hossam: otpauth://totp/SecureDocs:hossam?secret=I4PS5UHLG7JKQUMSWDABA5V3RXVKWPTM&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:54:48,183 INFO: Action: qr_code_success, User: hossam, Details: Generated QR code for 2FA for user hossam [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:54:48,185 INFO: Successfully generated and sending QR code image for user hossam. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:55:01,913 INFO: Action: login_manual_password_success, User: hossam, Details: Password verified for user hossam. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:55:57,250 INFO: Action: register_success, User: khalid, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:55:57,251 INFO: Redirecting registered user khalid to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:55:57,273 INFO: Accessing QR page for user: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:55:57,329 INFO: Generating QR code for user: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:55:57,342 INFO: Generated TOTP URI for khalid: otpauth://totp/SecureDocs:khalid?secret=UUTMNN6CZIQLHLBLE23TJMYWS6JSBZVR&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:55:57,389 INFO: Action: qr_code_success, User: khalid, Details: Generated QR code for 2FA for user khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:55:57,390 INFO: Successfully generated and sending QR code image for user khalid. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:58:18,718 INFO: Action: login_manual_password_success, User: khalid, Details: Password verified for user khalid. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:58:27,573 INFO: Action: login_manual_2fa_success, User: khalid, Details: User khalid successfully completed 2FA and logged in manually. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:58:27,629 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient', '_flashes': [('success', 'Successfully logged in')]} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 16:58:27,644 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 16:58:55,365 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient'} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 16:58:55,369 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 16:59:03,777 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient'} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 16:59:03,779 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 16:59:10,527 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient'} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 16:59:10,531 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 16:59:17,294 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient'} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 16:59:17,296 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 17:01:18,128 INFO: Action: register_success, User: amr, Details: User registered successfully as doctor. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 17:01:18,129 INFO: Redirecting registered user amr to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 17:01:18,210 INFO: Accessing QR page for user: amr [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 17:01:18,448 INFO: Generating QR code for user: amr [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 17:01:18,455 INFO: Generated TOTP URI for amr: otpauth://totp/SecureDocs:amr?secret=TLORU5VZ3UTRY4NWR3DAOYXDWSJISX4Z&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 17:01:18,498 INFO: Action: qr_code_success, User: amr, Details: Generated QR code for 2FA for user amr [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 17:01:18,498 INFO: Successfully generated and sending QR code image for user amr. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 17:01:39,576 INFO: Action: login_manual_password_success, User: amr, Details: Password verified for user amr. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 17:01:48,518 INFO: Action: login_manual_2fa_success, User: amr, Details: User amr successfully completed 2FA and logged in manually. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 17:02:06,183 INFO: Found doctor_id: 0 for username: amr [in C:\Users\maraw\Downloads\Info_final\info\app.py:2693]
-2025-10-30 17:02:06,187 INFO: Executing query: 
-            SELECT a.id, a.appointment_date, a.status, a.reason,
-                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
-                   u.phone as patient_phone,
-                   u.blood_type
-            FROM appointments a
-            JOIN users u ON a.patient_id = u.id
-            WHERE a.doctor_id = %s
-         ORDER BY a.appointment_date DESC [in C:\Users\maraw\Downloads\Info_final\info\app.py:2719]
-2025-10-30 17:02:06,188 INFO: With parameters: [0] [in C:\Users\maraw\Downloads\Info_final\info\app.py:2720]
-2025-10-30 17:02:06,210 INFO: Found 0 appointments [in C:\Users\maraw\Downloads\Info_final\info\app.py:2724]
-2025-10-30 17:07:11,965 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient'} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 17:07:11,972 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 17:07:16,144 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'khalid', 'role': 'patient'} [in C:\Users\maraw\Downloads\Info_final\info\app.py:2022]
-2025-10-30 17:07:16,147 INFO: Successfully loaded dashboard for patient: khalid [in C:\Users\maraw\Downloads\Info_final\info\app.py:2100]
-2025-10-30 17:10:42,857 INFO: Found doctor_id: 0 for username: amr [in C:\Users\maraw\Downloads\Info_final\info\app.py:2693]
-2025-10-30 17:10:42,859 INFO: Executing query: 
-            SELECT a.id, a.appointment_date, a.status, a.reason,
-                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
-                   u.phone as patient_phone,
-                   u.blood_type
-            FROM appointments a
-            JOIN users u ON a.patient_id = u.id
-            WHERE a.doctor_id = %s
-         ORDER BY a.appointment_date DESC [in C:\Users\maraw\Downloads\Info_final\info\app.py:2719]
-2025-10-30 17:10:42,861 INFO: With parameters: [0] [in C:\Users\maraw\Downloads\Info_final\info\app.py:2720]
-2025-10-30 17:10:42,880 INFO: Found 6 appointments [in C:\Users\maraw\Downloads\Info_final\info\app.py:2724]
+2025-10-31 03:23:38,863 INFO: MRI analysis completed: Tumor Detected, confidence: 0.79 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:24:30,068 INFO: MRI analysis completed: Tumor Detected, confidence: 0.753 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:24:57,129 INFO: MRI analysis completed: Tumor Detected, confidence: 0.766 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:26:24,255 INFO: MRI analysis completed: Tumor Detected, confidence: 0.708 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:27:17,377 INFO: MRI analysis completed: Tumor Detected, confidence: 0.769 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:08:03,609 INFO: MRI analysis completed: Tumor Detected, confidence: 0.986 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:08:31,531 INFO: MRI analysis completed: Tumor Detected, confidence: 0.95 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:09:04,142 INFO: MRI analysis completed: Tumor Detected, confidence: 0.902 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:09:34,124 INFO: MRI analysis completed: Tumor Detected, confidence: 0.961 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:15:12,246 INFO: MRI analysis completed: Tumor Detected, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:34:50,579 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:35:09,618 INFO: MRI analysis completed: Glioma, confidence: 0.9 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:36:33,073 INFO: MRI analysis completed: Glioma, confidence: 0.851 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:59:46,324 ERROR: Error analyzing MRI image: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'> [in C:\xampp\htdocs\INFO\app.py:2329]
+2025-10-31 04:59:46,349 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 34, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 23, in _get_model
+    _model = load_model(model_path)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\saving\saving_api.py", line 196, in load_model
+    return legacy_h5_format.load_model_from_hdf5(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\legacy_h5_format.py", line 137, in load_model_from_hdf5
+    model = saving_utils.model_from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\saving_utils.py", line 83, in model_from_config
+    return serialization.deserialize_keras_object(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\serialization.py", line 488, in deserialize_keras_object
+    deserialized_obj = cls.from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 375, in from_config
+    model.add(layer)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 122, in add
+    self._maybe_rebuild()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 149, in _maybe_rebuild
+    self.build(input_shape)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\layer.py", line 231, in build_wrapper
+    original_build_method(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 195, in build
+    x = layer(x)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\reshaping\flatten.py", line 76, in compute_output_spec
+    output_shape = self.compute_output_shape(inputs.shape)
+AttributeError: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'>
+ [in C:\xampp\htdocs\INFO\app.py:2330]
+2025-10-31 05:00:40,709 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]

@@ -1,81 +1,95 @@
-2025-05-25 20:26:20,852 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 20:28:27,069 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 22 (Username: <script>alert('XSS3')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 20:49:38,324 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 20:50:47,185 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 24 (Username: <script>alert('XSS4')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-10-30 15:49:42,646 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 15:49:42,667 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 15:51:02,138 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 15:51:02,144 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 15:54:28,419 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 15:54:28,430 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 16:09:44,481 INFO: Action: register_success, User: Adham, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:09:44,483 INFO: Redirecting registered user Adham to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:09:44,509 INFO: Accessing QR page for user: Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:09:44,586 INFO: Generating QR code for user: Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:09:44,599 INFO: Generated TOTP URI for Adham: otpauth://totp/SecureDocs:Adham?secret=5SO3FX5FVSIO5QJKMAG52R5R3AJNUESJ&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:09:45,226 INFO: Action: qr_code_success, User: Adham, Details: Generated QR code for 2FA for user Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:09:45,226 INFO: Successfully generated and sending QR code image for user Adham. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:10:36,364 INFO: Action: login_manual_password_success, User: Adham, Details: Password verified for user Adham. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:10:43,450 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:10:52,148 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:11:10,241 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:29,220 INFO: Action: register_success, User: warshan, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:29,221 INFO: Redirecting registered user warshan to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:21:29,259 INFO: Accessing QR page for user: warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:21:29,369 INFO: Generating QR code for user: warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:21:29,391 INFO: Generated TOTP URI for warshan: otpauth://totp/SecureDocs:warshan?secret=6GQM3IY655AIWTFCSQBPGLLFAMBLBJRB&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:21:29,449 INFO: Action: qr_code_success, User: warshan, Details: Generated QR code for 2FA for user warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:29,452 INFO: Successfully generated and sending QR code image for user warshan. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:21:45,930 INFO: Action: login_manual_password_success, User: warshan, Details: Password verified for user warshan. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:55,008 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:22:19,713 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:22:38,993 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:30:43,099 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:31:14,166 INFO: Action: login_manual_password_success, User: warshan, Details: Password verified for user warshan. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:32:09,548 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:33:12,082 INFO: Action: register_success, User: kareem, Details: User registered successfully as doctor. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:33:12,083 INFO: Redirecting registered user kareem to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:33:12,133 INFO: Accessing QR page for user: kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:33:12,282 INFO: Generating QR code for user: kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:33:12,301 INFO: Generated TOTP URI for kareem: otpauth://totp/SecureDocs:kareem?secret=56N2PHQBBRGCAAAD5KYP4BJROHX6HTIS&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:33:12,367 INFO: Action: qr_code_success, User: kareem, Details: Generated QR code for 2FA for user kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:33:12,368 INFO: Successfully generated and sending QR code image for user kareem. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:33:40,386 INFO: Action: login_manual_password_success, User: kareem, Details: Password verified for user kareem. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:34:12,045 INFO: Action: login_manual_2fa_failed, User: kareem, Details: User kareem failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:34:42,612 INFO: Action: login_manual_2fa_failed, User: kareem, Details: User kareem failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:54:05,556 ERROR: Error in registration process: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 16:54:05,603 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
-    return MySQLdb.connect(**kwargs)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 16:54:47,802 INFO: Action: register_success, User: hossam, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:54:47,805 INFO: Redirecting registered user hossam to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:54:47,835 INFO: Accessing QR page for user: hossam [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
+2025-10-30 21:18:25,320 INFO: Generating QR code for user: sam [in C:\xampp\htdocs\INFO\app.py:337]
+2025-10-30 21:18:25,399 INFO: Generated TOTP URI for sam: otpauth://totp/SecureDocs:sam?secret=BYW6ONNBJSBKD6375MHKUFR47FENKMZA&issuer=SecureDocs [in C:\xampp\htdocs\INFO\app.py:353]
+2025-10-30 21:18:28,131 INFO: Action: qr_code_success, User: sam, Details: Generated QR code for 2FA for user sam [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:18:28,135 INFO: Successfully generated and sending QR code image for user sam. [in C:\xampp\htdocs\INFO\app.py:362]
+2025-10-30 21:19:19,512 INFO: Action: login_manual_password_success, User: sam, Details: Password verified for user sam. Proceeding to 2FA. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:19:31,727 INFO: Action: login_manual_2fa_failed, User: sam, Details: User sam failed 2FA. Invalid code. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:19:42,434 INFO: Action: login_manual_2fa_success, User: sam, Details: User sam successfully completed 2FA and logged in manually. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:29:54,074 INFO: Action: register_success, User: ahmed, Details: User registered successfully as patient. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:29:54,081 INFO: Redirecting registered user ahmed to QR page. [in C:\xampp\htdocs\INFO\app.py:299]
+2025-10-30 21:29:54,166 INFO: Accessing QR page for user: ahmed [in C:\xampp\htdocs\INFO\app.py:321]
+2025-10-30 21:29:54,396 INFO: Generating QR code for user: ahmed [in C:\xampp\htdocs\INFO\app.py:337]
+2025-10-30 21:29:54,414 INFO: Generated TOTP URI for ahmed: otpauth://totp/SecureDocs:ahmed?secret=4GIDVBGCAZJYHE2GXEJL3RW7FBIB6BCR&issuer=SecureDocs [in C:\xampp\htdocs\INFO\app.py:353]
+2025-10-30 21:29:54,774 INFO: Action: qr_code_success, User: ahmed, Details: Generated QR code for 2FA for user ahmed [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:29:54,778 INFO: Successfully generated and sending QR code image for user ahmed. [in C:\xampp\htdocs\INFO\app.py:362]
+2025-10-30 21:30:28,987 INFO: Action: login_manual_password_success, User: ahmed, Details: Password verified for user ahmed. Proceeding to 2FA. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:30:40,524 INFO: Action: login_manual_2fa_success, User: ahmed, Details: User ahmed successfully completed 2FA and logged in manually. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:30:40,668 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', '_flashes': [('success', 'Successfully logged in')]} [in C:\xampp\htdocs\INFO\app.py:2049]
+2025-10-30 21:30:40,681 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2127]
+2025-10-30 21:34:39,027 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2049]
+2025-10-30 21:34:39,031 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2127]
+2025-10-30 21:41:28,248 INFO: Action: profile_update, User: sam, Details: Updated profile information [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:41:40,600 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:41:40,606 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:41:43,093 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:41:43,098 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:45:59,039 INFO: Action: profile_update, User: ahmed, Details: Updated profile information [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:45:59,138 INFO: Action: profile_update, User: ahmed, Details: Updated profile information [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:45:59,221 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', '_flashes': [('success', 'Profile updated successfully')]} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:45:59,239 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:47:35,749 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:47:51,671 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:47:51,675 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:48:03,327 INFO: Action: view_medical_record, User: ahmed, Details: Viewed medical record ID 1 [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:58:12,410 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 22:02:02,425 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:02:20,089 INFO: Action: view_medical_record, User: ahmed, Details: Viewed medical record ID 1 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:02:23,963 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 22:02:23,975 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-30 22:14:06,336 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:14:26,657 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:24:04,500 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 22:24:04,520 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-30 22:24:23,601 INFO: Action: view_medical_record, User: ahmed, Details: Viewed medical record ID 5 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:24:31,486 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 22:24:31,490 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-30 23:38:31,833 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:2972]
+2025-10-30 23:38:31,859 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:2998]
+2025-10-30 23:38:31,872 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:2999]
+2025-10-30 23:38:31,876 INFO: Found 1 appointments [in C:\xampp\htdocs\INFO\app.py:3003]
+2025-10-30 23:38:43,053 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:2972]
+2025-10-30 23:38:43,054 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:2998]
+2025-10-30 23:38:43,056 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:2999]
+2025-10-30 23:38:43,059 INFO: Found 1 appointments [in C:\xampp\htdocs\INFO\app.py:3003]
+2025-10-30 23:41:10,064 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 23:41:10,069 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-31 02:42:08,039 ERROR: Error analyzing MRI image: Model file not found: model/mri_brain_tumor.h5 [in C:\xampp\htdocs\INFO\app.py:2325]
+2025-10-31 02:42:08,054 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 26, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 14, in _get_model
+    raise FileNotFoundError(f"Model file not found: {model_path}")
+FileNotFoundError: Model file not found: model/mri_brain_tumor.h5
+ [in C:\xampp\htdocs\INFO\app.py:2326]
+2025-10-31 03:05:32,159 ERROR: Model file missing: Model file not found: C:\xampp\htdocs\INFO\model\mri_brain_tumor.h5
+Please ensure the MRI brain tumor detection model is placed in: C:\xampp\htdocs\INFO\model
+Expected file: mri_brain_tumor.h5 [in C:\xampp\htdocs\INFO\app.py:2325]
+2025-10-31 03:05:32,181 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 34, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 18, in _get_model
+    raise FileNotFoundError(
+FileNotFoundError: Model file not found: C:\xampp\htdocs\INFO\model\mri_brain_tumor.h5
+Please ensure the MRI brain tumor detection model is placed in: C:\xampp\htdocs\INFO\model
+Expected file: mri_brain_tumor.h5
+ [in C:\xampp\htdocs\INFO\app.py:2326]

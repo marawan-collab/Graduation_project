@@ -1,144 +1,111 @@
-2025-05-25 05:15:26,306 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
+2025-05-25 15:16:25,970 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:30,406 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:30,408 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:19:07,099 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-05-25 15:19:07,104 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:30,533 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:30,535 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:20:33,478 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-05-25 15:20:33,482 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:34,707 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:34,709 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:24:32,129 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-05-25 15:24:32,133 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:38,720 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:38,722 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:26:34,319 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-05-25 15:26:34,323 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:38,783 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:38,786 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:27:31,022 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-05-25 15:27:31,031 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:50,787 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:28:27,192 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-05-25 15:28:27,198 ERROR: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
+2025-05-25 15:36:05,593 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:286]
+2025-05-25 15:36:05,651 ERROR: Error details: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 251, in register
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:287]
+2025-05-25 15:40:49,469 INFO: Registration attempt for username: qoqo, email: qoqo@gmail.com, role: patient [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:219]
+2025-05-25 15:40:49,472 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:291]
+2025-05-25 15:40:49,475 ERROR: Error details: Traceback (most recent call last):
+  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 254, in register
+    cur = mysql.connection.cursor()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'cursor'
+ [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:292]
+2025-05-25 16:03:25,512 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 16:05:50,361 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 6 (Username: <script>alert('XSS')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 16:22:27,333 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 7 (Username: <img src=x onerror=alert('XSS')>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 16:29:01,857 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 15 (Username: <script>alert('XSS1')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
+2025-05-25 16:32:02,490 INFO: Action: register_success, User: zozo, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
+2025-05-25 16:32:02,493 INFO: Redirecting registered user zozo to QR page. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:272]
+2025-05-25 16:32:02,527 INFO: Accessing QR page for user: zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:294]
+2025-05-25 16:32:02,613 INFO: Generating QR code for user: zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:310]
+2025-05-25 16:32:02,617 INFO: Generated TOTP URI for zozo: otpauth://totp/SecureDocs:zozo?secret=AZRKKXL4YCXVJUS3EW4JGJYYG37MIA4M&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:326]
+2025-05-25 16:32:02,959 INFO: Action: qr_code_success, User: zozo, Details: Generated QR code for 2FA for user zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
+2025-05-25 16:32:02,960 INFO: Successfully generated and sending QR code image for user zozo. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:335]
+2025-05-25 16:32:32,062 INFO: Action: login_manual_failed, User: zozo, Details: Failed login attempt for user zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
+2025-05-25 16:32:41,516 INFO: Action: login_manual_password_success, User: zozo, Details: Password verified for user zozo. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]

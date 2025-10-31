@@ -22,6 +22,11 @@ Pillow
 requests
 cryptography
 
+# Machine Learning & Image Processing
+opencv-python
+numpy
+tensorflow
+
 # Development & Testing
 pytest
 pytest-flask

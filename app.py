@@ -21,6 +21,7 @@ from flask_dance.contrib.github import make_github_blueprint, github
 
 from crypto_utils import encrypt_file, decrypt_file, hash_file
 from error_handlers import init_error_handlers
+from mri_analysis import analyze_mri_image
 
 # Add imports for cryptography
 from cryptography.hazmat.primitives import hashes
@@ -213,6 +214,9 @@ def register():
             password = request.form.get('password')
             confirm_password = request.form.get('confirmPassword')
             role = request.form.get('role')
+            specialization = request.form.get('specialization') if role == 'doctor' else None
+            license_number = request.form.get('license_number') if role == 'doctor' else None
+            doctor_id_file = request.files.get('doctor_id_image') if role == 'doctor' else None
 
             # Server-side validation
             if not username or not email or not password or not confirm_password or not role:
@@ -259,10 +263,46 @@ def register():
                 hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
                 totp_secret = pyotp.random_base32()
 
-                cur.execute("""
-                    INSERT INTO users (username, email, password, 2fa_secret, role)
-                    VALUES (%s, %s, %s, %s, %s)
-                """, (username, email, hashed_pw, totp_secret, role))
+                if role == 'doctor':
+                    # Minimal validation for doctor-specific fields
+                    if not specialization or not license_number:
+                        flash('Specialization and license number are required for doctors.', 'danger')
+                        return redirect(url_for('register'))
+
+                    doctor_id_image_bytes = None
+                    if doctor_id_file and doctor_id_file.filename:
+                        try:
+                            doctor_id_image_bytes = doctor_id_file.read()
+                        except Exception:
+                            doctor_id_image_bytes = None
+
+                    # Generate RSA key pair for doctor to enable signing
+                    key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+                    private_pem = key.private_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PrivateFormat.PKCS8,
+                        encryption_algorithm=serialization.NoEncryption()
+                    ).decode('utf-8')
+                    public_pem = key.public_key().public_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PublicFormat.SubjectPublicKeyInfo
+                    ).decode('utf-8')
+
+                    cur.execute(
+                        """
+                        INSERT INTO users (username, email, password, 2fa_secret, role, specialization, license_number, doctor_id_image, private_key, public_key)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        """,
+                        (username, email, hashed_pw, totp_secret, role, specialization, license_number, doctor_id_image_bytes, private_pem, public_pem)
+                    )
+                else:
+                    cur.execute(
+                        """
+                        INSERT INTO users (username, email, password, 2fa_secret, role)
+                        VALUES (%s, %s, %s, %s, %s)
+                        """,
+                        (username, email, hashed_pw, totp_secret, role)
+                    )
                 mysql.connection.commit()
 
                 log_action(username, 'register_success', f'User registered successfully as {role}.')
@@ -1150,6 +1190,7 @@ def edit_profile():
             emergency_phone = request.form['emergency_phone']
             current_password = request.form['current_password']
             new_password = request.form.get('new_password')
+            confirm_password = request.form.get('confirm_password')
 
             # Verify current password
             cursor = mysql.connection.cursor()
@@ -1174,6 +1215,12 @@ def edit_profile():
             if cursor.fetchone():
                 flash('Email is already taken', 'danger')
                 return redirect(url_for('edit_profile'))
+
+            # If changing password, validate confirmation server-side
+            if new_password:
+                if not confirm_password or confirm_password != new_password:
+                    flash('New passwords do not match.', 'danger')
+                    return redirect(url_for('edit_profile'))
 
             # Update user data
             update_query = '''
@@ -2184,6 +2231,318 @@ def patient_appointments():
         cur.close()
 
 
+# Patient radiology files (upload/list/download)
+@app.route('/patient/radiology', methods=['GET', 'POST'])
+@login_required
+def patient_radiology():
+    if session.get('role') != 'patient':
+        flash('Access denied. Patient role required.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        # Get patient ID
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        patient = cur.fetchone()
+        if not patient:
+            flash('Patient record not found.', 'danger')
+            return redirect(url_for('logout'))
+        patient_id = patient[0]
+
+        # Ensure table exists
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS radiology_files (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                patient_id INT NOT NULL,
+                original_filename VARCHAR(255) NOT NULL,
+                stored_filename VARCHAR(255) NOT NULL,
+                file_type VARCHAR(50) NULL,
+                uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                tumor_detected VARCHAR(50) NULL,
+                confidence DECIMAL(5,3) NULL,
+                analysis_date TIMESTAMP NULL,
+                FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+            """
+        )
+        mysql.connection.commit()
+        
+        # Add new columns if they don't exist (for existing tables)
+        try:
+            cur.execute("ALTER TABLE radiology_files ADD COLUMN tumor_detected VARCHAR(50) NULL")
+            mysql.connection.commit()
+        except:
+            pass  # Column already exists
+        try:
+            cur.execute("ALTER TABLE radiology_files ADD COLUMN confidence DECIMAL(5,3) NULL")
+            mysql.connection.commit()
+        except:
+            pass  # Column already exists
+        try:
+            cur.execute("ALTER TABLE radiology_files ADD COLUMN analysis_date TIMESTAMP NULL")
+            mysql.connection.commit()
+        except:
+            pass  # Column already exists
+
+        if request.method == 'POST':
+            file = request.files.get('file')
+            if not file or not file.filename:
+                flash('Please choose a file to upload.', 'warning')
+                return redirect(url_for('patient_radiology'))
+
+            # Accept images and pdfs
+            allowed = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'tif', 'tiff', 'pdf'}
+            ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
+            if ext not in allowed:
+                flash('Only images and PDF files are allowed.', 'danger')
+                return redirect(url_for('patient_radiology'))
+
+            # Ensure directory
+            user_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+            os.makedirs(user_dir, exist_ok=True)
+
+            safe_name = secure_filename(file.filename)
+            stored_name = f"{int(datetime.now().timestamp())}_{safe_name}"
+            stored_path = os.path.join(user_dir, stored_name)
+            file.save(stored_path)
+
+            # Analyze MRI images
+            tumor_detected = None
+            confidence = None
+            analysis_date = None
+            
+            # Check if file is an image (not PDF) for MRI analysis
+            image_extensions = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'tif', 'tiff'}
+            if ext in image_extensions:
+                try:
+                    result, conf = analyze_mri_image(stored_path)
+                    tumor_detected = result
+                    confidence = conf
+                    analysis_date = datetime.now()
+                    app.logger.info(f"MRI analysis completed: {result}, confidence: {conf}")
+                except FileNotFoundError as e:
+                    app.logger.error(f"Model file missing: {e}")
+                    app.logger.error(traceback.format_exc())
+                    flash('File uploaded successfully. MRI model not found - analysis unavailable. Please contact administrator.', 'warning')
+                except Exception as e:
+                    app.logger.error(f"Error analyzing MRI image: {e}")
+                    app.logger.error(traceback.format_exc())
+                    # Continue with upload even if analysis fails
+                    flash(f'File uploaded successfully, but analysis failed: {str(e)}', 'warning')
+
+            cur.execute(
+                """
+                INSERT INTO radiology_files (patient_id, original_filename, stored_filename, file_type, tumor_detected, confidence, analysis_date)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """,
+                (patient_id, file.filename, stored_name, ext, tumor_detected, confidence, analysis_date)
+            )
+            mysql.connection.commit()
+            
+            if tumor_detected:
+                flash(f'Radiology file uploaded and analyzed: {tumor_detected} (confidence: {confidence:.1%})', 'success')
+            else:
+                flash('Radiology file uploaded successfully.', 'success')
+            return redirect(url_for('patient_radiology'))
+
+        # List existing files
+        cur.execute(
+            """
+            SELECT id, original_filename, stored_filename, file_type, uploaded_at, tumor_detected, confidence, analysis_date
+            FROM radiology_files
+            WHERE patient_id = %s
+            ORDER BY uploaded_at DESC
+            """,
+            (patient_id,)
+        )
+        rows = cur.fetchall()
+        files = [
+            {
+                'id': r[0],
+                'original_filename': r[1],
+                'stored_filename': r[2],
+                'file_type': r[3],
+                'uploaded_at': r[4],
+                'tumor_detected': r[5],
+                'confidence': float(r[6]) if r[6] else None,
+                'analysis_date': r[7]
+            } for r in rows
+        ]
+
+        return render_template('patient_radiology.html', files=files)
+    except Exception as e:
+        app.logger.error(f"Error in patient_radiology: {e}")
+        app.logger.error(traceback.format_exc())
+        flash('An error occurred while processing radiology files.', 'danger')
+        return redirect(url_for('patient_dashboard'))
+    finally:
+        cur.close()
+
+
+@app.route('/patient/radiology/view/<int:file_id>')
+@login_required
+def view_radiology(file_id):
+    """View/display radiology images"""
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute(
+            """
+            SELECT rf.stored_filename, rf.original_filename, rf.patient_id, rf.file_type
+            FROM radiology_files rf
+            JOIN users u ON rf.patient_id = u.id
+            WHERE rf.id = %s AND u.username = %s
+            """,
+            (file_id, session['username'])
+        )
+        row = cur.fetchone()
+        if not row:
+            flash('File not found.', 'danger')
+            return redirect(url_for('patient_radiology'))
+
+        stored_name, original_name, patient_id, file_type = row
+        user_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        path = os.path.join(user_dir, stored_name)
+        if not os.path.exists(path):
+            flash('File missing on server.', 'danger')
+            return redirect(url_for('patient_radiology'))
+
+        # Determine MIME type
+        mime_types = {
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'bmp': 'image/bmp',
+            'tif': 'image/tiff',
+            'tiff': 'image/tiff',
+            'pdf': 'application/pdf'
+        }
+        mimetype = mime_types.get(file_type.lower(), 'application/octet-stream')
+        
+        return send_file(path, mimetype=mimetype)
+    finally:
+        cur.close()
+
+@app.route('/patient/radiology/download/<int:file_id>')
+@login_required
+def download_radiology(file_id):
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute(
+            """
+            SELECT rf.stored_filename, rf.original_filename, rf.patient_id
+            FROM radiology_files rf
+            JOIN users u ON rf.patient_id = u.id
+            WHERE rf.id = %s AND u.username = %s
+            """,
+            (file_id, session['username'])
+        )
+        row = cur.fetchone()
+        if not row:
+            flash('File not found.', 'danger')
+            return redirect(url_for('patient_radiology'))
+
+        stored_name, original_name, patient_id = row
+        user_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        path = os.path.join(user_dir, stored_name)
+        if not os.path.exists(path):
+            flash('File missing on server.', 'danger')
+            return redirect(url_for('patient_radiology'))
+
+        return send_file(path, as_attachment=True, download_name=original_name)
+    finally:
+        cur.close()
+@app.route('/doctor/signed-records')
+@login_required
+def doctor_signed_records():
+    if session.get('role') != 'doctor':
+        flash('Access denied. Doctor role required.', 'danger')
+        return redirect(url_for('home'))
+
+    # Filters
+    patient = request.args.get('patient', '').strip()
+    date = request.args.get('date', '').strip()  # YYYY-MM-DD
+
+    cur = mysql.connection.cursor()
+    try:
+        # Get doctor id
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        row = cur.fetchone()
+        if not row:
+            flash('Doctor record not found.', 'danger')
+            return redirect(url_for('home'))
+        doctor_id = row[0]
+
+        query = (
+            """
+            SELECT mr.id,
+                   mr.signature_time,
+                   mr.record_date,
+                   mr.diagnosis,
+                   mr.treatment,
+                   mr.record_hash,
+                   CONCAT(p.first_name, ' ', p.last_name) AS patient_name
+            FROM medical_records mr
+            JOIN users p ON mr.patient_id = p.id
+            WHERE mr.signed_by = %s
+            """
+        )
+        params = [doctor_id]
+
+        if patient:
+            query += " AND (p.first_name LIKE %s OR p.last_name LIKE %s OR CONCAT(p.first_name, ' ', p.last_name) LIKE %s)"
+            like = f"%{patient}%"
+            params.extend([like, like, like])
+
+        if date:
+            query += " AND DATE(mr.signature_time) = %s"
+            params.append(date)
+
+        query += " ORDER BY mr.signature_time DESC, mr.id DESC"
+
+        cur.execute(query, tuple(params))
+        rows = cur.fetchall()
+
+        # Group by date(signature_time)
+        groups = {}
+        for r in rows:
+            record_id = r[0]
+            signed_at = r[1]
+            group_key = signed_at.date() if signed_at else None
+            if group_key not in groups:
+                groups[group_key] = []
+            groups[group_key].append({
+                'id': record_id,
+                'signed_at': signed_at,
+                'record_date': r[2],
+                'diagnosis': r[3],
+                'treatment': r[4],
+                'record_hash': r[5],
+                'patient_name': r[6]
+            })
+
+        # Sort groups newest first
+        sorted_groups = sorted(groups.items(), key=lambda kv: (kv[0] is None, kv[0]), reverse=True)
+
+        return render_template(
+            'doctor_signed_records.html',
+            groups=sorted_groups,
+            patient_filter=patient,
+            date_filter=date
+        )
+    finally:
+        cur.close()
+
 @app.route('/view_medical_record/<int:record_id>')
 @login_required
 def view_medical_record(record_id):
@@ -2378,8 +2737,9 @@ def patient_medical_records():
 
         cur.execute("""
             SELECT mr.id, mr.record_date, mr.diagnosis, mr.treatment,
-                CONCAT(u.first_name, ' ', u.last_name) as doctor_name,
-                u.specialization
+                   CONCAT(u.first_name, ' ', u.last_name) as doctor_name,
+                   u.specialization,
+                   (mr.signature IS NOT NULL) AS signed
             FROM medical_records mr
             JOIN users u ON mr.doctor_id = u.id
             WHERE mr.patient_id = %s
@@ -2395,7 +2755,8 @@ def patient_medical_records():
                 'diagnosis': record[2],
                 'treatment': record[3],
                 'doctor_name': record[4],
-                'specialization': record[5]
+                'specialization': record[5],
+                'signed': bool(record[6])
             } for record in records
         ]
 
@@ -2522,6 +2883,20 @@ def schedule_appointment():
             INSERT INTO appointments (patient_id, doctor_id, appointment_date, status, reason)
             VALUES (%s, %s, %s, 'scheduled', %s)
         """, (patient_id, doctor_id, appointment_date, reason))
+        
+        # Ensure doctor-patient assignment exists
+        try:
+            cur.execute(
+                """
+                INSERT INTO doctor_patient_assignments (doctor_id, patient_id)
+                VALUES (%s, %s)
+                ON DUPLICATE KEY UPDATE status = VALUES(status)
+                """,
+                (doctor_id, patient_id)
+            )
+        except Exception:
+            # If table or constraint not present, continue without blocking scheduling
+            pass
         mysql.connection.commit()
         flash('Appointment scheduled successfully!', 'success')
     except Exception as e:
@@ -2582,7 +2957,8 @@ def doctor_dashboard():
         cur.execute("""
             SELECT mr.id, mr.record_date, mr.diagnosis, mr.treatment,
                    CONCAT(p.first_name, ' ', p.last_name) as patient_name,
-                   p.blood_type
+                   p.blood_type,
+                   (mr.signature IS NOT NULL) AS signed
             FROM medical_records mr
             JOIN users p ON mr.patient_id = p.id
             WHERE mr.doctor_id = %s
@@ -2645,15 +3021,19 @@ def doctor_dashboard():
                     'diagnosis': record[2],
                     'treatment': record[3],
                     'patient_name': record[4],
-                    'blood_type': record[5]
+                    'blood_type': record[5],
+                    'signed': bool(record[6])
                 })
             return formatted
+
+        signed_record_id = session.pop('signed_record_id', None)
 
         return render_template('doctor_dashboard.html',
                              today_appointments=format_appointments(today_appointments),
                              upcoming_appointments=format_appointments(upcoming_appointments),
                              recent_records=format_records(recent_records),
                              patients=patients,
+                             signed_record_id=signed_record_id,
                              stats={
                                  'total_patients': stats[0],
                                  'scheduled_appointments': stats[1],
@@ -2831,6 +3211,7 @@ def add_medical_record():
     patient_id = request.form.get('patient_id')
     diagnosis = request.form.get('diagnosis')
     treatment = request.form.get('treatment')
+    action = request.form.get('action')  # normal add or sign_and_add
 
     if not all([patient_id, diagnosis, treatment]):
         flash('All fields are required.', 'danger')
@@ -2847,10 +3228,72 @@ def add_medical_record():
         doctor_id = doctor[0]
 
         # Add medical record
-        cur.execute("""
+        cur.execute(
+            """
             INSERT INTO medical_records (patient_id, doctor_id, diagnosis, treatment, record_date)
             VALUES (%s, %s, %s, %s, NOW())
-        """, (patient_id, doctor_id, diagnosis, treatment))
+            """,
+            (patient_id, doctor_id, diagnosis, treatment)
+        )
+        record_id = cur.lastrowid
+
+        # If requested, sign the newly created record using doctor's private key
+        if action == 'sign_and_add':
+            # Fetch private key
+            cur.execute("SELECT private_key FROM users WHERE id = %s", (doctor_id,))
+            row = cur.fetchone()
+            private_key_pem = row[0] if row else None
+
+            if not private_key_pem:
+                # Auto-generate RSA key pair for the doctor and persist
+                try:
+                    key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+                    private_pem = key.private_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PrivateFormat.PKCS8,
+                        encryption_algorithm=serialization.NoEncryption()
+                    )
+                    public_pem = key.public_key().public_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PublicFormat.SubjectPublicKeyInfo
+                    )
+
+                    cur.execute(
+                        "UPDATE users SET private_key = %s, public_key = %s WHERE id = %s",
+                        (private_pem.decode('utf-8'), public_pem.decode('utf-8'), doctor_id)
+                    )
+                    private_key_pem = private_pem.decode('utf-8')
+                except Exception as e:
+                    app.logger.error(f"Failed to generate RSA keys for doctor {doctor_id}: {e}")
+                    flash('Could not create signing keys for your account.', 'danger')
+                    mysql.connection.commit()
+                    return redirect(url_for('doctor_dashboard'))
+            
+            # If we reach here we have a private key
+            if private_key_pem:
+                # Build deterministic record payload and hash
+                payload = f"{patient_id}|{doctor_id}|{diagnosis}|{treatment}"
+                record_hash = hashlib.sha256(payload.encode('utf-8')).hexdigest()
+
+                try:
+                    signature_bytes = sign_document_util(record_hash.encode('utf-8'), private_key_pem)
+                    cur.execute(
+                        """
+                        UPDATE medical_records
+                        SET signature = %s,
+                            signature_time = CURRENT_TIMESTAMP,
+                            signed_by = %s,
+                            record_hash = %s
+                        WHERE id = %s
+                        """,
+                        (signature_bytes, doctor_id, record_hash, record_id)
+                    )
+                    session['signed_record_id'] = record_id
+                    flash('Record saved and signed successfully.', 'success')
+                except Exception as e:
+                    app.logger.error(f"Error signing medical record {record_id}: {e}")
+                    flash('Record added but signing failed.', 'warning')
+
         mysql.connection.commit()
 
         flash('Medical record added successfully.', 'success')
@@ -2865,6 +3308,81 @@ def add_medical_record():
         cur.close()
 
     return redirect(url_for('doctor_dashboard'))
+
+
+# View medical record signature
+@app.route('/medical-records/<int:record_id>/signature')
+@login_required
+def view_medical_record_signature(record_id):
+    cur = mysql.connection.cursor()
+    try:
+        # Doctors can view signatures of their records; patients can view their own
+        cur.execute(
+            """
+            SELECT mr.id, mr.patient_id, mr.doctor_id, mr.record_date, mr.diagnosis, mr.treatment,
+                   mr.signature, mr.signature_time, mr.record_hash,
+                   du.username as doctor_username, pu.username as patient_username
+            FROM medical_records mr
+            JOIN users du ON mr.doctor_id = du.id
+            JOIN users pu ON mr.patient_id = pu.id
+            WHERE mr.id = %s
+            """,
+            (record_id,)
+        )
+        row = cur.fetchone()
+        if not row:
+            flash('Medical record not found.', 'danger')
+            return redirect(url_for('home'))
+
+        # Authorization
+        username = session.get('username')
+        role = session.get('role')
+        if role == 'doctor' and username != row[9] and role != 'admin':
+            flash('Access denied.', 'danger')
+            return redirect(url_for('home'))
+        if role == 'patient' and username != row[10] and role != 'admin':
+            flash('Access denied.', 'danger')
+            return redirect(url_for('home'))
+
+        signature_present = bool(row[6])
+        return render_template(
+            'view_medical_record_signature.html',
+            signed=signature_present,
+            record={
+                'id': row[0],
+                'date': row[3],
+                'diagnosis': row[4],
+                'treatment': row[5],
+                'record_hash': row[8],
+                'doctor_username': row[9],
+                'patient_username': row[10],
+                'signature_time': row[7]
+            }
+        )
+    finally:
+        cur.close()
+
+
+@app.route('/medical-records/<int:record_id>/download-signature')
+@login_required
+def download_medical_record_signature(record_id):
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT signature FROM medical_records WHERE id = %s", (record_id,))
+        row = cur.fetchone()
+        if not row or not row[0]:
+            flash('Signature not found for this record.', 'danger')
+            return redirect(url_for('home'))
+
+        sig_bytes = row[0]
+        return send_file(
+            io.BytesIO(sig_bytes),
+            as_attachment=True,
+            download_name=f"medical_record_{record_id}.sig",
+            mimetype='application/octet-stream'
+        )
+    finally:
+        cur.close()
 
 if __name__ == '__main__':
     app.run(
