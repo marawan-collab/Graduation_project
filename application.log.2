@@ -1,0 +1,93 @@
+2025-11-01 14:20:13,775 INFO: Deleted radiology file Te-noTr_0003.pdf (ID: 72) from database [in C:\xampp\htdocs\INFO\app.py:2977]
+2025-11-01 14:20:26,444 INFO: Deleted folder directory and all contents: uploads\radiology\27\doctor_ahmed [in C:\xampp\htdocs\INFO\app.py:2630]
+2025-11-01 14:20:26,447 INFO: Deleted radiology folder 'doctor_ahmed' (Patient ID: 27) [in C:\xampp\htdocs\INFO\app.py:2636]
+2025-11-01 14:23:37,467 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 14:23:37,472 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 15:00:37,122 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:00:37,129 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:00:38,555 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:00:38,559 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:00:46,809 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:00:46,813 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:01:06,964 INFO: Action: login_manual_password_success, User: ahmed, Details: Password verified for user ahmed. Proceeding to 2FA. [in C:\xampp\htdocs\INFO\app.py:888]
+2025-11-01 15:01:46,317 INFO: Action: login_manual_2fa_success, User: ahmed, Details: User ahmed successfully completed 2FA and logged in manually. [in C:\xampp\htdocs\INFO\app.py:888]
+2025-11-01 15:01:46,395 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed', '_flashes': [('success', 'Successfully logged in')]} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:01:46,403 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:02:28,582 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:02:28,586 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:03:56,196 INFO: Action: login_manual_password_success, User: sam, Details: Password verified for user sam. Proceeding to 2FA. [in C:\xampp\htdocs\INFO\app.py:888]
+2025-11-01 15:04:29,687 INFO: Action: login_manual_2fa_success, User: sam, Details: User sam successfully completed 2FA and logged in manually. [in C:\xampp\htdocs\INFO\app.py:888]
+2025-11-01 15:05:04,620 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:888]
+2025-11-01 15:05:41,867 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:888]
+2025-11-01 15:07:16,277 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:3602]
+2025-11-01 15:07:16,279 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:3628]
+2025-11-01 15:07:16,281 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:3629]
+2025-11-01 15:07:16,284 INFO: Found 2 appointments [in C:\xampp\htdocs\INFO\app.py:3633]
+2025-11-01 15:07:45,999 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:3602]
+2025-11-01 15:07:46,001 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:3628]
+2025-11-01 15:07:46,004 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:3629]
+2025-11-01 15:07:46,008 INFO: Found 2 appointments [in C:\xampp\htdocs\INFO\app.py:3633]
+2025-11-01 15:31:27,901 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:31:27,907 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:31:30,069 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:31:30,075 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:31:52,791 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:31:52,794 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:32:03,739 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:32:03,742 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:32:18,928 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:3602]
+2025-11-01 15:32:18,930 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:3628]
+2025-11-01 15:32:18,934 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:3629]
+2025-11-01 15:32:18,937 INFO: Found 2 appointments [in C:\xampp\htdocs\INFO\app.py:3633]
+2025-11-01 15:34:42,342 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:34:42,351 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:40:49,776 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:40:49,782 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:40:50,829 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:40:50,835 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:40:51,844 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:40:51,850 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:41:02,959 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2112]
+2025-11-01 15:41:02,962 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2190]
+2025-11-01 15:41:26,505 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:3602]
+2025-11-01 15:41:26,508 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:3628]
+2025-11-01 15:41:26,510 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:3629]
+2025-11-01 15:41:26,516 INFO: Found 2 appointments [in C:\xampp\htdocs\INFO\app.py:3633]
+2025-11-01 15:53:24,192 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2117]
+2025-11-01 15:53:24,197 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2195]
+2025-11-01 15:53:33,249 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2117]
+2025-11-01 15:53:33,258 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2195]
+2025-11-01 15:53:37,925 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2117]
+2025-11-01 15:53:37,933 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2195]

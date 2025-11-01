@@ -1,0 +1,104 @@
+2025-10-31 22:20:36,192 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2108]
+2025-10-31 22:20:36,217 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2186]
+2025-10-31 22:20:38,143 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2108]
+2025-10-31 22:20:38,146 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2186]
+2025-10-31 22:25:24,710 INFO: Deleted radiology file Y2.jpg (ID: 68) from database [in C:\xampp\htdocs\INFO\app.py:2917]
+2025-10-31 22:25:33,008 INFO: Deleted radiology file from filesystem: uploads\radiology\27\brain_mRI2\1761930986_Te-noTr_0003.pdf [in C:\xampp\htdocs\INFO\app.py:2906]
+2025-10-31 22:25:33,013 INFO: Deleted radiology file Te-noTr_0003.pdf (ID: 70) from database [in C:\xampp\htdocs\INFO\app.py:2917]
+2025-10-31 23:00:35,384 INFO: Deleted folder directory and all contents: uploads\radiology\27\brain_mRI2 [in C:\xampp\htdocs\INFO\app.py:2630]
+2025-10-31 23:00:35,387 INFO: Deleted radiology folder 'brain_mRI2' (Patient ID: 27) [in C:\xampp\htdocs\INFO\app.py:2636]
+2025-11-01 00:01:20,179 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:01:20,184 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:13:42,825 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:13:42,829 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:14:14,136 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:14:14,140 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:14:52,567 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:14:52,570 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:15:37,686 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:15:37,689 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 12:56:57,889 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-11-01 12:56:58,413 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 197, in before_request
+    cur = mysql.connection.cursor()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-11-01 12:57:02,640 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-11-01 12:57:02,644 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 197, in before_request
+    cur = mysql.connection.cursor()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-11-01 12:57:06,733 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-11-01 12:57:06,743 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 197, in before_request
+    cur = mysql.connection.cursor()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-11-01 12:57:10,830 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-11-01 12:57:10,849 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 197, in before_request
+    cur = mysql.connection.cursor()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-11-01 12:57:13,769 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', '_flashes': [('danger', 'An unexpected error occurred. Please try again later.'), ('danger', 'An unexpected error occurred. Please try again later.'), ('danger', 'An unexpected error occurred. Please try again later.'), ('danger', 'An unexpected error occurred. Please try again later.')]} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 12:57:13,795 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 12:57:19,289 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 12:57:19,295 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 12:58:40,287 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 12:58:40,318 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 14:11:53,903 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 14:11:53,926 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 14:12:06,495 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 14:12:06,499 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 14:18:35,285 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 14:18:35,292 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 14:20:13,762 INFO: Deleted radiology file from filesystem: uploads\radiology\27\doctor_ahmed\1761999609_Te-noTr_0003.pdf [in C:\xampp\htdocs\INFO\app.py:2966]

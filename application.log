@@ -1,0 +1,39 @@
+2025-11-02 00:57:21,631 ERROR: File not found: uploads\radiology\27\Hossam\1762037747_24_no.jpg (stored_name: Hossam\1762037747_24_no.jpg, user_dir: uploads\radiology\27) [in C:\xampp\htdocs\INFO\app.py:2991]
+2025-11-02 00:57:25,359 INFO: Deleted radiology file 24 no.jpg (ID: 82) from database [in C:\xampp\htdocs\INFO\app.py:3114]
+2025-11-02 00:57:40,663 WARNING: Watermarking failed for uploads\radiology\27\Hossam\1762037860_no.jpg.tmp: 'ImageDraw' object has no attribute 'textsize' [in C:\xampp\htdocs\INFO\app.py:2456]
+2025-11-02 00:57:40,666 WARNING: MRI model not available - skipping analysis. File uploaded successfully. [in C:\xampp\htdocs\INFO\app.py:2789]
+2025-11-02 00:57:41,568 ERROR: File not found: uploads\radiology\27\Hossam\1762037860_no.jpg (stored_name: Hossam\1762037860_no.jpg, user_dir: uploads\radiology\27) [in C:\xampp\htdocs\INFO\app.py:2991]
+2025-11-02 00:57:51,240 ERROR: File not found: uploads\radiology\27\Hossam\1762037860_no.jpg (stored_name: Hossam\1762037860_no.jpg, user_dir: uploads\radiology\27) [in C:\xampp\htdocs\INFO\app.py:2991]
+2025-11-02 00:59:29,062 WARNING: Watermarking failed for uploads\radiology\27\demo\1762037969_5_no.jpg.tmp: 'ImageDraw' object has no attribute 'textsize' [in C:\xampp\htdocs\INFO\app.py:2456]
+2025-11-02 00:59:29,066 WARNING: MRI model not available - skipping analysis. File uploaded successfully. [in C:\xampp\htdocs\INFO\app.py:2789]
+2025-11-02 00:59:29,814 ERROR: File not found: uploads\radiology\27\demo\1762037969_5_no.jpg (stored_name: demo\1762037969_5_no.jpg, user_dir: uploads\radiology\27) [in C:\xampp\htdocs\INFO\app.py:2991]
+2025-11-02 01:06:09,595 ERROR: File not found: uploads\radiology\27\demo\1762037969_5_no.jpg (stored_name: demo\1762037969_5_no.jpg, user_dir: uploads\radiology\27) [in C:\xampp\htdocs\INFO\app.py:3013]
+2025-11-02 01:06:14,368 INFO: Deleted radiology file 5 no.jpg (ID: 84) from database [in C:\xampp\htdocs\INFO\app.py:3136]
+2025-11-02 01:06:24,332 INFO: MRI analysis completed: pituitary, confidence: 0.983 [in C:\xampp\htdocs\INFO\app.py:2808]
+2025-11-02 01:07:38,279 INFO: MRI analysis completed: notumor, confidence: 0.524 [in C:\xampp\htdocs\INFO\app.py:2808]
+2025-11-02 01:09:52,076 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', 'first_name': 'ahmed'} [in C:\xampp\htdocs\INFO\app.py:2117]
+2025-11-02 01:09:52,086 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2195]
+2025-11-02 01:10:10,556 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:4565]
+2025-11-02 01:10:10,560 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:4591]
+2025-11-02 01:10:10,564 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:4592]
+2025-11-02 01:10:10,568 INFO: Found 2 appointments [in C:\xampp\htdocs\INFO\app.py:4596]
+2025-11-02 01:10:50,914 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:4565]
+2025-11-02 01:10:50,918 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:4591]
+2025-11-02 01:10:50,922 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:4592]
+2025-11-02 01:10:50,924 INFO: Found 2 appointments [in C:\xampp\htdocs\INFO\app.py:4596]

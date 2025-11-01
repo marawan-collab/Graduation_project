@@ -1,0 +1,34 @@
+# Web Framework
+Flask
+Werkzeug
+
+# Database
+Flask-MySQLdb
+mysql-connector-python
+
+# Security & Authentication
+Flask-Bcrypt
+Flask-Session
+Flask-Dance
+PyCryptodome
+pyotp
+qrcode
+
+# Environment Variables
+python-dotenv
+
+# Utilities
+Pillow
+requests
+cryptography
+
+# Machine Learning & Image Processing
+opencv-python
+numpy
+tensorflow
+
+# Development & Testing
+pytest
+pytest-flask
+black
+flake8 
