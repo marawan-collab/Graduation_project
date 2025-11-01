@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Secure Health{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">
+                        <i class="fas fa-user-shield text-primary me-2"></i>Admin Dashboard
+                    </h2>
+                    <p class="text-muted mb-0">Welcome back, {{ session.username }}!</p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-danger">
+                        <i class="fas fa-user-shield me-1"></i>Administrator
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Patients</h6>
+                            <h2 class="mb-0">{{ stats.patients }}</h2>
+                        </div>
+                        <i class="fas fa-user-injured fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Doctors</h6>
+                            <h2 class="mb-0">{{ stats.doctors }}</h2>
+                        </div>
+                        <i class="fas fa-user-md fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase mb-1">Admins</h6>
+                            <h2 class="mb-0">{{ stats.admins }}</h2>
+                        </div>
+                        <i class="fas fa-user-shield fa-2x opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- User Management Card -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-users-cog text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="card-title mb-0">User Management</h5>
+                            <p class="text-muted mb-0">Manage system users</p>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('admin_dashboard') }}#users" class="btn btn-primary w-100">
+                        <i class="fas fa-users me-2"></i>Manage Users
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Logs Card -->
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-clipboard-list text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="card-title mb-0">System Logs</h5>
+                            <p class="text-muted mb-0">Monitor system activity</p>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('admin_logs') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-history me-2"></i>View Logs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Recent Activity</h3>
+                    <a href="{{ url_for('admin_logs') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-history me-2"></i>View All Logs
+                    </a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in recent_logs %}
+                                <tr>
+                                    <td>{{ log[0].strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                    <td>{{ log[1] }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'primary' if 'success' in log[2] else 'danger' if 'error' in log[2] or 'failed' in log[2] else 'info' }}">
+                                            {{ log[2] }}
+                                        </span>
+                                    </td>
+                                    <td>{{ log[3] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Management Section -->
+    <div class="row mb-4" id="users">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">User Management</h3>
+                    <a href="{{ url_for('admin_add_user') }}" class="btn btn-success btn-sm">
+                        <i class="fas fa-user-plus me-2"></i>Add New User
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form method="GET" action="{{ url_for('admin_dashboard') }}#users" class="mb-3">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    <input type="text" class="form-control" name="user_search" placeholder="Search users..." value="{{ request.args.get('user_search', '') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" name="user_role">
+                                    <option value="all" {% if request.args.get('user_role') == 'all' %}selected{% endif %}>All Roles</option>
+                                    <option value="admin" {% if request.args.get('user_role') == 'admin' %}selected{% endif %}>Admins</option>
+                                    <option value="doctor" {% if request.args.get('user_role') == 'doctor' %}selected{% endif %}>Doctors</option>
+                                    <option value="patient" {% if request.args.get('user_role') == 'patient' %}selected{% endif %}>Patients</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">Apply</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user[0] }}</td>
+                                    <td>{{ user[1] }}</td>
+                                    <td>{{ user[2] }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'danger' if user[3] == 'admin' else 'primary' if user[3] == 'doctor' else 'success' }}">
+                                            {{ user[3] }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ url_for('admin_edit_user', user_id=user[0]) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ url_for('admin_delete_user', user_id=user[0]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete user {{ user[1] }}?');" style="display:inline;">
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Details - {{ patient.full_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Patient Details: {{ patient.full_name }}</h1>
+        <a href="{{ url_for('doctor_patients') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Patients
+        </a>
+    </div>
+
+    <!-- Patient Information Card -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-user me-2"></i>Patient Information</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Name:</strong> {{ patient.full_name }}</p>
+                    <p><strong>Email:</strong> {{ patient.email }}</p>
+                    <p><strong>Phone:</strong> {{ patient.phone or 'N/A' }}</p>
+                </div>
+                <div class="col-md-6">
+                    {% if patient.date_of_birth %}
+                    <p><strong>Date of Birth:</strong> {{ patient.date_of_birth }}</p>
+                    {% endif %}
+                    {% if patient.gender %}
+                    <p><strong>Gender:</strong> {{ patient.gender }}</p>
+                    {% endif %}
+                    {% if patient.blood_type %}
+                    <p><strong>Blood Type:</strong> {{ patient.blood_type }}</p>
+                    {% endif %}
+                    {% if patient.emergency_contact %}
+                    <p><strong>Emergency Contact:</strong> {{ patient.emergency_contact }}</p>
+                    {% if patient.emergency_phone %}
+                    <p><strong>Emergency Phone:</strong> {{ patient.emergency_phone }}</p>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Medical Records -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-file-medical me-2"></i>Medical Records</h5>
+                </div>
+                <div class="card-body">
+                    {% if medical_records %}
+                    <div class="list-group">
+                        {% for record in medical_records %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ record.record_date.strftime('%Y-%m-%d %I:%M %p') }}</h6>
+                                {% if record.signed %}
+                                <span class="badge bg-success">Signed</span>
+                                {% endif %}
+                            </div>
+                            <p class="mb-1"><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+                            {% if record.treatment %}
+                            <p class="mb-1"><strong>Treatment:</strong> {{ record.treatment }}</p>
+                            {% endif %}
+                            {% if record.follow_up_date %}
+                            <small class="text-muted">Follow-up: {{ record.follow_up_date }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No medical records found for this patient.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Radiology Folders -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-x-ray me-2"></i>Radiology Files</h5>
+                </div>
+                <div class="card-body">
+                    {% if radiology_folders %}
+                    <div class="list-group">
+                        {% for folder in radiology_folders %}
+                        <a href="{{ url_for('doctor_view_patient_radiology', patient_id=patient.id, folder=folder.name) }}" 
+                           class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                    <i class="fas fa-folder me-2"></i>{{ folder.name }}
+                                </h6>
+                                <span class="badge bg-primary">{{ folder.file_count }} file(s)</span>
+                            </div>
+                            <small class="text-muted">Click to view files in this folder</small>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No radiology files found for this patient.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-4">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Note:</strong> The patient has been notified that you have reviewed their medical records and radiology files.
+    </div>
+</div>
+{% endblock %}
+

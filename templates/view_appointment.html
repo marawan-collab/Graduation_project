@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}View Appointment - Secure Health{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-1">
+                        <i class="fas fa-calendar-check text-primary me-2"></i>Appointment Details
+                    </h2>
+                    <p class="text-muted mb-0">View details for Appointment ID: {{ appointment.id }}</p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-primary">
+                        <i class="fas fa-user-shield me-1"></i>Patient
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {% if category == 'success' %}
+                        <i class="fas fa-check-circle me-2"></i>
+                    {% elif category == 'danger' %}
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                    {% elif category == 'warning' %}
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                    {% elif category == 'info' %}
+                        <i class="fas fa-info-circle me-2"></i>
+                    {% endif %}
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Appointment Details Card -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Appointment Information</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <p><strong>Appointment ID:</strong> {{ appointment.id }}</p>
+                            <p><strong>Date & Time:</strong> {{ appointment.appointment_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                            <p><strong>Status:</strong>
+                                <span class="badge bg-{{ {'scheduled': 'primary', 'completed': 'success', 'cancelled': 'danger', 'no_show': 'warning'}[appointment.status] }}">
+                                    {{ appointment.status|title }}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Doctor:</strong> Dr. {{ appointment.doctor_name }}</p>
+                            <p><strong>Specialization:</strong> {{ appointment.specialization }}</p>
+                            <p><strong>Reason:</strong> {{ appointment.reason }}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="{{ url_for('patient_appointments') }}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Appointments
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

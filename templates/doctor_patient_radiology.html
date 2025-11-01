@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Radiology Files - {{ patient_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="fas fa-x-ray me-2"></i>Radiology Files
+            <small class="text-muted">- {{ patient_name }}</small>
+        </h1>
+        <a href="{{ url_for('doctor_patient_detail', patient_id=patient_id) }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Patient
+        </a>
+    </div>
+
+    <div class="alert alert-info">
+        <i class="fas fa-folder me-2"></i>
+        <strong>Folder:</strong> {{ folder if folder else 'Default' }}
+    </div>
+
+    {% if files %}
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">
+                <i class="fas fa-file-image me-2"></i>
+                {{ files|length }} file(s) in this folder
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Type</th>
+                            <th>Analysis Result</th>
+                            <th>Confidence</th>
+                            <th>Analysis Date</th>
+                            <th>Uploaded</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td>
+                                <i class="fas fa-file me-2"></i>
+                                <strong>{{ file.original_filename }}</strong>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">{{ file.file_type|upper }}</span>
+                            </td>
+                            <td>
+                                {% if file.tumor_detected %}
+                                <span class="badge {% if file.tumor_detected == 'No Tumor' or file.tumor_detected == 'notumor' %}bg-success{% else %}bg-warning{% endif %}">
+                                    {{ file.tumor_detected }}
+                                </span>
+                                {% else %}
+                                <span class="text-muted">Not analyzed</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if file.confidence %}
+                                {{ "%.1f"|format(file.confidence * 100) }}%
+                                {% else %}
+                                <span class="text-muted">N/A</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if file.analysis_date %}
+                                {{ file.analysis_date.strftime('%Y-%m-%d %I:%M %p') }}
+                                {% else %}
+                                <span class="text-muted">N/A</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ file.uploaded_at.strftime('%Y-%m-%d') }}
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    {% if (file.file_type or '').lower() == 'pdf' %}
+                                    <a href="{{ url_for('doctor_view_radiology_file', patient_id=patient_id, file_id=file.id) }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm btn-primary" 
+                                       title="View PDF">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                    {% elif file.file_type and file.file_type.lower() in ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'tif', 'tiff'] %}
+                                    <a href="{{ url_for('doctor_view_radiology_file', patient_id=patient_id, file_id=file.id) }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm btn-primary" 
+                                       title="View Image">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                    {% else %}
+                                    <a href="{{ url_for('doctor_view_radiology_file', patient_id=patient_id, file_id=file.id) }}" 
+                                       target="_blank" 
+                                       class="btn btn-sm btn-primary" 
+                                       title="View File">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                    {% endif %}
+                                    <a href="{{ url_for('doctor_download_radiology_file', patient_id=patient_id, file_id=file.id) }}" 
+                                       class="btn btn-sm btn-secondary" 
+                                       title="Download">
+                                        <i class="fas fa-download me-1"></i>Download
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        No files found in this folder.
+    </div>
+    {% endif %}
+
+    <div class="alert alert-info mt-4">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Note:</strong> The patient has been notified that you have reviewed their radiology files.
+    </div>
+</div>
+{% endblock %}
+

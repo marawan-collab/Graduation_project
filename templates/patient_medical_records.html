@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Records - Secure Health{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">
+                <i class="fas fa-file-medical text-primary me-2"></i>Medical Records
+            </h2>
+            <a href="{{ url_for('patient_radiology') }}" class="btn btn-success">
+                <i class="fas fa-x-ray me-2"></i>Radiology
+            </a>
+        </div>
+    </div>
+
+    <!-- Medical Records List -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% if records %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Specialization</th>
+                            <th>Diagnosis</th>
+                            <th>Treatment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td>{{ record.date.strftime('%Y-%m-%d') }}</td>
+                            <td>Dr. {{ record.doctor_name }}</td>
+                            <td>{{ record.specialization }}</td>
+                            <td>{{ record.diagnosis or 'Not specified' }}</td>
+                            <td>{{ record.treatment or 'Not specified' }}</td>
+                            <td>
+                                <a href="{{ url_for('view_medical_record', record_id=record.id) }}" class="btn btn-sm btn-info" title="View Record">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                {% if record.signed %}
+                                <a href="{{ url_for('view_medical_record_signature', record_id=record.id) }}" class="btn btn-sm btn-success" title="Signed and verified">
+                                    <i class="fas fa-signature"></i>
+                                    <i class="fas fa-check ms-1"></i>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-muted mb-0">No medical records found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- View Medical Record Modal -->
+<div class="modal fade" id="viewRecordModal" tabindex="-1" aria-labelledby="viewRecordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewRecordModalLabel">Medical Record Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Date</h6>
+                        <p id="record-date" class="mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Doctor</h6>
+                        <p id="record-doctor" class="mb-0"></p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Type</h6>
+                        <p id="record-type" class="mb-0"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-1">Specialization</h6>
+                        <p id="record-specialization" class="mb-0"></p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h6 class="text-muted mb-1">Diagnosis</h6>
+                    <p id="record-diagnosis" class="mb-0"></p>
+                </div>
+                <div class="mb-3">
+                    <h6 class="text-muted mb-1">Treatment</h6>
+                    <p id="record-treatment" class="mb-0"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Function to view medical record details
+    function viewRecord(recordId) {
+        fetch(`/api/medical-records/${recordId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('record-date').textContent = new Date(data.date).toLocaleDateString();
+                document.getElementById('record-doctor').textContent = `Dr. ${data.doctor_name}`;
+                document.getElementById('record-type').textContent = data.type;
+                document.getElementById('record-specialization').textContent = data.specialization;
+                document.getElementById('record-diagnosis').textContent = data.diagnosis || 'Not specified';
+                document.getElementById('record-treatment').textContent = data.treatment || 'Not specified';
+
+                new bootstrap.Modal(document.getElementById('viewRecordModal')).show();
+            })
+            .catch(error => {
+                console.error('Error fetching medical record:', error);
+                alert('Error loading medical record details.');
+            });
+    }
+</script>
+{% endblock %}

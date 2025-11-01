@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}My Patients - Secure Health{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Patients</h1>
+        <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    {% if patients %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        You have <strong>{{ total_patients }}</strong> patient(s) assigned to you. Click on a patient to view their medical records and radiology files.
+    </div>
+
+    <div class="row">
+        {% for patient in patients %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user me-2"></i>{{ patient.full_name }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <strong>Email:</strong> {{ patient.email }}<br>
+                        <strong>Phone:</strong> {{ patient.phone or 'N/A' }}<br>
+                        {% if patient.date_of_birth %}
+                        <strong>Date of Birth:</strong> {{ patient.date_of_birth }}<br>
+                        {% endif %}
+                        {% if patient.gender %}
+                        <strong>Gender:</strong> {{ patient.gender }}<br>
+                        {% endif %}
+                        {% if patient.blood_type %}
+                        <strong>Blood Type:</strong> {{ patient.blood_type }}<br>
+                        {% endif %}
+                    </div>
+                    <hr>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="text-muted small">Appointments</div>
+                            <div class="h5 mb-0">{{ patient.appointment_count }}</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-muted small">Records</div>
+                            <div class="h5 mb-0">{{ patient.medical_record_count }}</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="text-muted small">Scans</div>
+                            <div class="h5 mb-0">{{ patient.radiology_file_count }}</div>
+                        </div>
+                    </div>
+                    {% if patient.last_appointment %}
+                    <div class="mt-2 text-muted small text-center">
+                        Last Appointment: {{ patient.last_appointment.strftime('%Y-%m-%d') }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('doctor_patient_detail', patient_id=patient.id) }}" class="btn btn-primary w-100">
+                        <i class="fas fa-eye me-2"></i>View Patient Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        You don't have any patients assigned yet. Patients will appear here once they schedule an appointment with you.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
