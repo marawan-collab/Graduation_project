@@ -1,81 +1,129 @@
-2025-05-25 20:26:20,852 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 20:28:27,069 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 22 (Username: <script>alert('XSS3')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 20:49:38,324 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 20:50:47,185 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 24 (Username: <script>alert('XSS4')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-10-30 15:49:42,646 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 15:49:42,667 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 15:51:02,138 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 15:51:02,144 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 15:54:28,419 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 15:54:28,430 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 16:09:44,481 INFO: Action: register_success, User: Adham, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:09:44,483 INFO: Redirecting registered user Adham to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:09:44,509 INFO: Accessing QR page for user: Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:09:44,586 INFO: Generating QR code for user: Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:09:44,599 INFO: Generated TOTP URI for Adham: otpauth://totp/SecureDocs:Adham?secret=5SO3FX5FVSIO5QJKMAG52R5R3AJNUESJ&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:09:45,226 INFO: Action: qr_code_success, User: Adham, Details: Generated QR code for 2FA for user Adham [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:09:45,226 INFO: Successfully generated and sending QR code image for user Adham. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:10:36,364 INFO: Action: login_manual_password_success, User: Adham, Details: Password verified for user Adham. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:10:43,450 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:10:52,148 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:11:10,241 INFO: Action: login_manual_2fa_failed, User: Adham, Details: User Adham failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:29,220 INFO: Action: register_success, User: warshan, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:29,221 INFO: Redirecting registered user warshan to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:21:29,259 INFO: Accessing QR page for user: warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:21:29,369 INFO: Generating QR code for user: warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:21:29,391 INFO: Generated TOTP URI for warshan: otpauth://totp/SecureDocs:warshan?secret=6GQM3IY655AIWTFCSQBPGLLFAMBLBJRB&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:21:29,449 INFO: Action: qr_code_success, User: warshan, Details: Generated QR code for 2FA for user warshan [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:29,452 INFO: Successfully generated and sending QR code image for user warshan. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:21:45,930 INFO: Action: login_manual_password_success, User: warshan, Details: Password verified for user warshan. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:21:55,008 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:22:19,713 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:22:38,993 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:30:43,099 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:31:14,166 INFO: Action: login_manual_password_success, User: warshan, Details: Password verified for user warshan. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:32:09,548 INFO: Action: login_manual_2fa_failed, User: warshan, Details: User warshan failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:33:12,082 INFO: Action: register_success, User: kareem, Details: User registered successfully as doctor. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:33:12,083 INFO: Redirecting registered user kareem to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:33:12,133 INFO: Accessing QR page for user: kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
-2025-10-30 16:33:12,282 INFO: Generating QR code for user: kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:310]
-2025-10-30 16:33:12,301 INFO: Generated TOTP URI for kareem: otpauth://totp/SecureDocs:kareem?secret=56N2PHQBBRGCAAAD5KYP4BJROHX6HTIS&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\info\app.py:326]
-2025-10-30 16:33:12,367 INFO: Action: qr_code_success, User: kareem, Details: Generated QR code for 2FA for user kareem [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:33:12,368 INFO: Successfully generated and sending QR code image for user kareem. [in C:\Users\maraw\Downloads\Info_final\info\app.py:335]
-2025-10-30 16:33:40,386 INFO: Action: login_manual_password_success, User: kareem, Details: Password verified for user kareem. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:34:12,045 INFO: Action: login_manual_2fa_failed, User: kareem, Details: User kareem failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:34:42,612 INFO: Action: login_manual_2fa_failed, User: kareem, Details: User kareem failed 2FA. Invalid code. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:54:05,556 ERROR: Error in registration process: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\Users\maraw\Downloads\Info_final\info\app.py:285]
-2025-10-30 16:54:05,603 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\info\app.py", line 250, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
-    return MySQLdb.connect(**kwargs)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-  File "C:\Users\maraw\Downloads\Info_final\info\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in C:\Users\maraw\Downloads\Info_final\info\app.py:286]
-2025-10-30 16:54:47,802 INFO: Action: register_success, User: hossam, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\info\app.py:805]
-2025-10-30 16:54:47,805 INFO: Redirecting registered user hossam to QR page. [in C:\Users\maraw\Downloads\Info_final\info\app.py:272]
-2025-10-30 16:54:47,835 INFO: Accessing QR page for user: hossam [in C:\Users\maraw\Downloads\Info_final\info\app.py:294]
+2025-10-31 16:23:02,315 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2336, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 95, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 41, in _get_model
+    _model = load_model(model_path)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\saving\saving_api.py", line 196, in load_model
+    return legacy_h5_format.load_model_from_hdf5(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\legacy_h5_format.py", line 137, in load_model_from_hdf5
+    model = saving_utils.model_from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\saving_utils.py", line 83, in model_from_config
+    return serialization.deserialize_keras_object(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\serialization.py", line 488, in deserialize_keras_object
+    deserialized_obj = cls.from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 375, in from_config
+    model.add(layer)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 122, in add
+    self._maybe_rebuild()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 149, in _maybe_rebuild
+    self.build(input_shape)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\layer.py", line 231, in build_wrapper
+    original_build_method(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 195, in build
+    x = layer(x)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\reshaping\flatten.py", line 76, in compute_output_spec
+    output_shape = self.compute_output_shape(inputs.shape)
+AttributeError: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'>
+ [in C:\xampp\htdocs\INFO\app.py:2347]
+2025-10-31 16:26:54,418 ERROR: Error analyzing MRI image: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'> [in C:\xampp\htdocs\INFO\app.py:2346]
+2025-10-31 16:26:54,435 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2336, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 92, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 42, in _get_model
+    _model = load_model(model_path)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\saving\saving_api.py", line 196, in load_model
+    return legacy_h5_format.load_model_from_hdf5(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\legacy_h5_format.py", line 137, in load_model_from_hdf5
+    model = saving_utils.model_from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\saving_utils.py", line 83, in model_from_config
+    return serialization.deserialize_keras_object(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\serialization.py", line 488, in deserialize_keras_object
+    deserialized_obj = cls.from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 375, in from_config
+    model.add(layer)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 122, in add
+    self._maybe_rebuild()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 149, in _maybe_rebuild
+    self.build(input_shape)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\layer.py", line 231, in build_wrapper
+    original_build_method(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 195, in build
+    x = layer(x)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\reshaping\flatten.py", line 76, in compute_output_spec
+    output_shape = self.compute_output_shape(inputs.shape)
+AttributeError: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'>
+ [in C:\xampp\htdocs\INFO\app.py:2347]
+2025-10-31 16:27:58,885 INFO: MRI analysis completed: Glioma, confidence: 0.758 [in C:\xampp\htdocs\INFO\app.py:2340]
+2025-10-31 16:28:35,266 INFO: MRI analysis completed: Glioma, confidence: 0.556 [in C:\xampp\htdocs\INFO\app.py:2340]
+2025-10-31 16:28:52,233 INFO: MRI analysis completed: Glioma, confidence: 0.851 [in C:\xampp\htdocs\INFO\app.py:2340]
+2025-10-31 16:29:22,256 INFO: MRI analysis completed: Glioma, confidence: 0.947 [in C:\xampp\htdocs\INFO\app.py:2340]
+2025-10-31 16:41:19,917 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:3117]
+2025-10-31 16:41:19,919 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:3143]
+2025-10-31 16:41:19,921 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:3144]
+2025-10-31 16:41:19,937 INFO: Found 1 appointments [in C:\xampp\htdocs\INFO\app.py:3148]
+2025-10-31 16:45:47,205 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:3117]
+2025-10-31 16:45:47,206 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:3143]
+2025-10-31 16:45:47,209 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:3144]
+2025-10-31 16:45:47,211 INFO: Found 1 appointments [in C:\xampp\htdocs\INFO\app.py:3148]
+2025-10-31 16:46:48,694 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]
+2025-10-31 16:46:48,701 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2174]
+2025-10-31 16:47:11,321 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]
+2025-10-31 16:47:11,325 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2174]
+2025-10-31 16:47:15,816 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]
+2025-10-31 16:47:15,819 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2174]
+2025-10-31 16:47:19,108 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]
+2025-10-31 16:47:19,112 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2174]
+2025-10-31 16:57:24,415 INFO: MRI analysis completed: Glioma, confidence: 0.912 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:05:33,722 INFO: MRI analysis completed: Glioma, confidence: 0.881 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:07:50,121 INFO: MRI analysis completed: Glioma, confidence: 0.937 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:08:01,326 INFO: MRI analysis completed: Glioma, confidence: 0.977 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:09:42,224 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]
+2025-10-31 17:09:42,240 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2174]
+2025-10-31 17:10:03,490 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]
+2025-10-31 17:10:03,495 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2174]
+2025-10-31 17:16:03,857 INFO: MRI analysis completed: Glioma, confidence: 0.985 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:16:20,002 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:16:28,889 INFO: MRI analysis completed: Glioma, confidence: 0.881 [in C:\xampp\htdocs\INFO\app.py:2367]
+2025-10-31 17:18:19,976 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2096]

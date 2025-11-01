@@ -1,111 +1,131 @@
-2025-05-25 15:16:25,970 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
+2025-10-31 03:23:38,863 INFO: MRI analysis completed: Tumor Detected, confidence: 0.79 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:24:30,068 INFO: MRI analysis completed: Tumor Detected, confidence: 0.753 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:24:57,129 INFO: MRI analysis completed: Tumor Detected, confidence: 0.766 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:26:24,255 INFO: MRI analysis completed: Tumor Detected, confidence: 0.708 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 03:27:17,377 INFO: MRI analysis completed: Tumor Detected, confidence: 0.769 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:08:03,609 INFO: MRI analysis completed: Tumor Detected, confidence: 0.986 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:08:31,531 INFO: MRI analysis completed: Tumor Detected, confidence: 0.95 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:09:04,142 INFO: MRI analysis completed: Tumor Detected, confidence: 0.902 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:09:34,124 INFO: MRI analysis completed: Tumor Detected, confidence: 0.961 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:15:12,246 INFO: MRI analysis completed: Tumor Detected, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:34:50,579 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:35:09,618 INFO: MRI analysis completed: Glioma, confidence: 0.9 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:36:33,073 INFO: MRI analysis completed: Glioma, confidence: 0.851 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 04:59:46,324 ERROR: Error analyzing MRI image: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'> [in C:\xampp\htdocs\INFO\app.py:2329]
+2025-10-31 04:59:46,349 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 34, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 23, in _get_model
+    _model = load_model(model_path)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\saving\saving_api.py", line 196, in load_model
+    return legacy_h5_format.load_model_from_hdf5(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\legacy_h5_format.py", line 137, in load_model_from_hdf5
+    model = saving_utils.model_from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\saving_utils.py", line 83, in model_from_config
+    return serialization.deserialize_keras_object(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\serialization.py", line 488, in deserialize_keras_object
+    deserialized_obj = cls.from_config(
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 375, in from_config
+    model.add(layer)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 122, in add
+    self._maybe_rebuild()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 149, in _maybe_rebuild
+    self.build(input_shape)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\layer.py", line 231, in build_wrapper
+    original_build_method(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 195, in build
+    x = layer(x)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\reshaping\flatten.py", line 76, in compute_output_spec
+    output_shape = self.compute_output_shape(inputs.shape)
+AttributeError: Exception encountered when calling Flatten.call().
+
+[1m'list' object has no attribute 'shape'[0m
+
+Arguments received by Flatten.call():
+  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
+  • kwargs=<class 'inspect._empty'>
+ [in C:\xampp\htdocs\INFO\app.py:2330]
+2025-10-31 05:00:40,709 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 14:57:13,405 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-10-31 14:57:13,518 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 184, in before_request
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:19:07,099 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:19:07,104 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-10-31 14:57:17,627 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-10-31 14:57:17,635 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 184, in before_request
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:20:33,478 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:20:33,482 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-10-31 14:57:21,703 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-10-31 14:57:21,709 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 184, in before_request
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:24:32,129 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:24:32,133 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-10-31 14:57:25,860 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]
+2025-10-31 14:57:25,864 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask\app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "C:\xampp\htdocs\INFO\app.py", line 184, in before_request
     cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:26:34,319 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:26:34,323 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:27:31,022 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:27:31,031 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:28:27,192 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:28:27,198 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\Downloads\Info_final\INFO\env\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:36:05,593 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:286]
-2025-05-25 15:36:05,651 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 251, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:287]
-2025-05-25 15:40:49,469 INFO: Registration attempt for username: qoqo, email: qoqo@gmail.com, role: patient [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:219]
-2025-05-25 15:40:49,472 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:291]
-2025-05-25 15:40:49,475 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 254, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:292]
-2025-05-25 16:03:25,512 INFO: Action: login_manual_success, User: admin' OR '1'='1, Details: User admin' OR '1'='1 logged in successfully with role admin [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 16:05:50,361 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 6 (Username: <script>alert('XSS')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 16:22:27,333 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 7 (Username: <img src=x onerror=alert('XSS')>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 16:29:01,857 INFO: Action: admin_edit_user_success, User: shadwa, Details: Admin updated user ID 15 (Username: <script>alert('XSS1')</script>, Role: patient) [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:836]
-2025-05-25 16:32:02,490 INFO: Action: register_success, User: zozo, Details: User registered successfully as patient. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
-2025-05-25 16:32:02,493 INFO: Redirecting registered user zozo to QR page. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:272]
-2025-05-25 16:32:02,527 INFO: Accessing QR page for user: zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:294]
-2025-05-25 16:32:02,613 INFO: Generating QR code for user: zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:310]
-2025-05-25 16:32:02,617 INFO: Generated TOTP URI for zozo: otpauth://totp/SecureDocs:zozo?secret=AZRKKXL4YCXVJUS3EW4JGJYYG37MIA4M&issuer=SecureDocs [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:326]
-2025-05-25 16:32:02,959 INFO: Action: qr_code_success, User: zozo, Details: Generated QR code for 2FA for user zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
-2025-05-25 16:32:02,960 INFO: Successfully generated and sending QR code image for user zozo. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:335]
-2025-05-25 16:32:32,062 INFO: Action: login_manual_failed, User: zozo, Details: Failed login attempt for user zozo [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
-2025-05-25 16:32:41,516 INFO: Action: login_manual_password_success, User: zozo, Details: Password verified for user zozo. Proceeding to 2FA. [in C:\Users\maraw\Downloads\Info_final\INFO\app.py:805]
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 109, in connection
+    ctx.mysql_db = self.connect
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\flask_mysqldb\__init__.py", line 97, in connect
+    return MySQLdb.connect(**kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
+    return Connection(*args, **kwargs)
+  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\MySQLdb\connections.py", line 200, in __init__
+    super().__init__(*args, **kwargs2)
+MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
+ [in C:\xampp\htdocs\INFO\error_handlers.py:54]
+2025-10-31 14:57:29,932 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in C:\xampp\htdocs\INFO\error_handlers.py:53]

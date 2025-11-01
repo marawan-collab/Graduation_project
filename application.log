@@ -1,58 +1,19 @@
-2025-10-31 03:23:38,863 INFO: MRI analysis completed: Tumor Detected, confidence: 0.79 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 03:24:30,068 INFO: MRI analysis completed: Tumor Detected, confidence: 0.753 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 03:24:57,129 INFO: MRI analysis completed: Tumor Detected, confidence: 0.766 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 03:26:24,255 INFO: MRI analysis completed: Tumor Detected, confidence: 0.708 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 03:27:17,377 INFO: MRI analysis completed: Tumor Detected, confidence: 0.769 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:08:03,609 INFO: MRI analysis completed: Tumor Detected, confidence: 0.986 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:08:31,531 INFO: MRI analysis completed: Tumor Detected, confidence: 0.95 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:09:04,142 INFO: MRI analysis completed: Tumor Detected, confidence: 0.902 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:09:34,124 INFO: MRI analysis completed: Tumor Detected, confidence: 0.961 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:15:12,246 INFO: MRI analysis completed: Tumor Detected, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:34:50,579 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:35:09,618 INFO: MRI analysis completed: Glioma, confidence: 0.9 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:36:33,073 INFO: MRI analysis completed: Glioma, confidence: 0.851 [in C:\xampp\htdocs\INFO\app.py:2323]
-2025-10-31 04:59:46,324 ERROR: Error analyzing MRI image: Exception encountered when calling Flatten.call().
-
-[1m'list' object has no attribute 'shape'[0m
-
-Arguments received by Flatten.call():
-  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
-  • kwargs=<class 'inspect._empty'> [in C:\xampp\htdocs\INFO\app.py:2329]
-2025-10-31 04:59:46,349 ERROR: Traceback (most recent call last):
-  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
-    result, conf = analyze_mri_image(stored_path)
-  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 34, in analyze_mri_image
-    model = _get_model()
-  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 23, in _get_model
-    _model = load_model(model_path)
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\saving\saving_api.py", line 196, in load_model
-    return legacy_h5_format.load_model_from_hdf5(
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\legacy_h5_format.py", line 137, in load_model_from_hdf5
-    model = saving_utils.model_from_config(
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\saving_utils.py", line 83, in model_from_config
-    return serialization.deserialize_keras_object(
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\legacy\saving\serialization.py", line 488, in deserialize_keras_object
-    deserialized_obj = cls.from_config(
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 375, in from_config
-    model.add(layer)
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 122, in add
-    self._maybe_rebuild()
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 149, in _maybe_rebuild
-    self.build(input_shape)
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\layer.py", line 231, in build_wrapper
-    original_build_method(*args, **kwargs)
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\models\sequential.py", line 195, in build
-    x = layer(x)
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
-    raise e.with_traceback(filtered_tb) from None
-  File "C:\xampp\htdocs\INFO\.venv\lib\site-packages\keras\src\layers\reshaping\flatten.py", line 76, in compute_output_spec
-    output_shape = self.compute_output_shape(inputs.shape)
-AttributeError: Exception encountered when calling Flatten.call().
-
-[1m'list' object has no attribute 'shape'[0m
-
-Arguments received by Flatten.call():
-  • args=(['<KerasTensor shape=(None, 4, 4, 512), dtype=float32, sparse=False, ragged=False, name=keras_tensor_37>'],)
-  • kwargs=<class 'inspect._empty'>
- [in C:\xampp\htdocs\INFO\app.py:2330]
-2025-10-31 05:00:40,709 INFO: MRI analysis completed: Glioma, confidence: 0.934 [in C:\xampp\htdocs\INFO\app.py:2323]
+2025-10-31 22:20:36,192 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2108]
+2025-10-31 22:20:36,217 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2186]
+2025-10-31 22:20:38,143 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2108]
+2025-10-31 22:20:38,146 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2186]
+2025-10-31 22:25:24,710 INFO: Deleted radiology file Y2.jpg (ID: 68) from database [in C:\xampp\htdocs\INFO\app.py:2917]
+2025-10-31 22:25:33,008 INFO: Deleted radiology file from filesystem: uploads\radiology\27\brain_mRI2\1761930986_Te-noTr_0003.pdf [in C:\xampp\htdocs\INFO\app.py:2906]
+2025-10-31 22:25:33,013 INFO: Deleted radiology file Te-noTr_0003.pdf (ID: 70) from database [in C:\xampp\htdocs\INFO\app.py:2917]
+2025-10-31 23:00:35,384 INFO: Deleted folder directory and all contents: uploads\radiology\27\brain_mRI2 [in C:\xampp\htdocs\INFO\app.py:2630]
+2025-10-31 23:00:35,387 INFO: Deleted radiology folder 'brain_mRI2' (Patient ID: 27) [in C:\xampp\htdocs\INFO\app.py:2636]
+2025-11-01 00:01:20,179 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:01:20,184 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:13:42,825 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:13:42,829 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:14:14,136 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:14:14,140 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:14:52,567 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:14:52,570 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]
+2025-11-01 00:15:37,686 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2109]
+2025-11-01 00:15:37,689 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2187]

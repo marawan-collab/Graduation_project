@@ -1,140 +1,95 @@
-2025-05-25 05:15:50,794 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:54,884 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:54,886 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:15:58,973 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:15:58,975 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:16:03,045 ERROR: Unhandled Error: (2002, "Can't connect to server on 'localhost' (10061)") [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:53]
-2025-05-25 05:16:03,049 ERROR: Traceback (most recent call last):
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1511, in full_dispatch_request
-    rv = self.preprocess_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask\app.py", line 1857, in preprocess_request
-    rv = self.ensure_sync(func)()
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\INFO\app.py", line 183, in before_request
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 94, in connection
-    ctx.mysql_db = self.connect
-                   ^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\flask_mysqldb\__init__.py", line 81, in connect
-    return MySQLdb.connect(**kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\__init__.py", line 121, in Connect
-    return Connection(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\Learn Flask\INFO_FINAL\venv\Lib\site-packages\MySQLdb\connections.py", line 200, in __init__
-    super().__init__(*args, **kwargs2)
-MySQLdb.OperationalError: (2002, "Can't connect to server on 'localhost' (10061)")
- [in D:\Learn Flask\INFO_FINAL\INFO\error_handlers.py:54]
-2025-05-25 05:17:36,050 INFO: Action: login_manual_password_success, User: Ali, Details: Password verified for user Ali. Proceeding to 2FA. [in D:\Learn Flask\INFO_FINAL\INFO\app.py:805]
-2025-05-25 15:02:51,813 ERROR: Error in registration process: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:286]
-2025-05-25 15:02:51,820 ERROR: Error details: Traceback (most recent call last):
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 251, in register
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py:287]
-2025-05-25 15:04:08,097 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:04:08,102 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:05:49,201 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:05:49,294 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:06:32,327 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
-2025-05-25 15:06:32,338 ERROR: Traceback (most recent call last):
-  File "C:\Users\maraw\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\maraw\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "C:\Users\maraw\Downloads\Info_final\INFO\vulnerable_app.py", line 355, in login
-    cur = mysql.connection.cursor()
-          ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'cursor'
- [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:54]
-2025-05-25 15:16:25,961 ERROR: Unhandled Error: 'NoneType' object has no attribute 'cursor' [in C:\Users\maraw\Downloads\Info_final\INFO\error_handlers.py:53]
+2025-10-30 21:18:25,320 INFO: Generating QR code for user: sam [in C:\xampp\htdocs\INFO\app.py:337]
+2025-10-30 21:18:25,399 INFO: Generated TOTP URI for sam: otpauth://totp/SecureDocs:sam?secret=BYW6ONNBJSBKD6375MHKUFR47FENKMZA&issuer=SecureDocs [in C:\xampp\htdocs\INFO\app.py:353]
+2025-10-30 21:18:28,131 INFO: Action: qr_code_success, User: sam, Details: Generated QR code for 2FA for user sam [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:18:28,135 INFO: Successfully generated and sending QR code image for user sam. [in C:\xampp\htdocs\INFO\app.py:362]
+2025-10-30 21:19:19,512 INFO: Action: login_manual_password_success, User: sam, Details: Password verified for user sam. Proceeding to 2FA. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:19:31,727 INFO: Action: login_manual_2fa_failed, User: sam, Details: User sam failed 2FA. Invalid code. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:19:42,434 INFO: Action: login_manual_2fa_success, User: sam, Details: User sam successfully completed 2FA and logged in manually. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:29:54,074 INFO: Action: register_success, User: ahmed, Details: User registered successfully as patient. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:29:54,081 INFO: Redirecting registered user ahmed to QR page. [in C:\xampp\htdocs\INFO\app.py:299]
+2025-10-30 21:29:54,166 INFO: Accessing QR page for user: ahmed [in C:\xampp\htdocs\INFO\app.py:321]
+2025-10-30 21:29:54,396 INFO: Generating QR code for user: ahmed [in C:\xampp\htdocs\INFO\app.py:337]
+2025-10-30 21:29:54,414 INFO: Generated TOTP URI for ahmed: otpauth://totp/SecureDocs:ahmed?secret=4GIDVBGCAZJYHE2GXEJL3RW7FBIB6BCR&issuer=SecureDocs [in C:\xampp\htdocs\INFO\app.py:353]
+2025-10-30 21:29:54,774 INFO: Action: qr_code_success, User: ahmed, Details: Generated QR code for 2FA for user ahmed [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:29:54,778 INFO: Successfully generated and sending QR code image for user ahmed. [in C:\xampp\htdocs\INFO\app.py:362]
+2025-10-30 21:30:28,987 INFO: Action: login_manual_password_success, User: ahmed, Details: Password verified for user ahmed. Proceeding to 2FA. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:30:40,524 INFO: Action: login_manual_2fa_success, User: ahmed, Details: User ahmed successfully completed 2FA and logged in manually. [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:30:40,668 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', '_flashes': [('success', 'Successfully logged in')]} [in C:\xampp\htdocs\INFO\app.py:2049]
+2025-10-30 21:30:40,681 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2127]
+2025-10-30 21:34:39,027 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2049]
+2025-10-30 21:34:39,031 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2127]
+2025-10-30 21:41:28,248 INFO: Action: profile_update, User: sam, Details: Updated profile information [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:41:40,600 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:41:40,606 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:41:43,093 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:41:43,098 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:45:59,039 INFO: Action: profile_update, User: ahmed, Details: Updated profile information [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:45:59,138 INFO: Action: profile_update, User: ahmed, Details: Updated profile information [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:45:59,221 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient', '_flashes': [('success', 'Profile updated successfully')]} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:45:59,239 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:47:35,749 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:47:51,671 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2056]
+2025-10-30 21:47:51,675 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2134]
+2025-10-30 21:48:03,327 INFO: Action: view_medical_record, User: ahmed, Details: Viewed medical record ID 1 [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 21:58:12,410 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:832]
+2025-10-30 22:02:02,425 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:02:20,089 INFO: Action: view_medical_record, User: ahmed, Details: Viewed medical record ID 1 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:02:23,963 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 22:02:23,975 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-30 22:14:06,336 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:14:26,657 INFO: Action: add_medical_record, User: sam, Details: Added medical record for patient ID 27 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:24:04,500 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 22:24:04,520 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-30 22:24:23,601 INFO: Action: view_medical_record, User: ahmed, Details: Viewed medical record ID 5 [in C:\xampp\htdocs\INFO\app.py:844]
+2025-10-30 22:24:31,486 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 22:24:31,490 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-30 23:38:31,833 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:2972]
+2025-10-30 23:38:31,859 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:2998]
+2025-10-30 23:38:31,872 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:2999]
+2025-10-30 23:38:31,876 INFO: Found 1 appointments [in C:\xampp\htdocs\INFO\app.py:3003]
+2025-10-30 23:38:43,053 INFO: Found doctor_id: 26 for username: sam [in C:\xampp\htdocs\INFO\app.py:2972]
+2025-10-30 23:38:43,054 INFO: Executing query: 
+            SELECT a.id, a.appointment_date, a.status, a.reason,
+                   CONCAT(u.first_name, ' ', u.last_name) as patient_name,
+                   u.phone as patient_phone,
+                   u.blood_type
+            FROM appointments a
+            JOIN users u ON a.patient_id = u.id
+            WHERE a.doctor_id = %s
+         ORDER BY a.appointment_date DESC [in C:\xampp\htdocs\INFO\app.py:2998]
+2025-10-30 23:38:43,056 INFO: With parameters: [26] [in C:\xampp\htdocs\INFO\app.py:2999]
+2025-10-30 23:38:43,059 INFO: Found 1 appointments [in C:\xampp\htdocs\INFO\app.py:3003]
+2025-10-30 23:41:10,064 INFO: Accessing patient dashboard. Session data: {'_permanent': True, 'username': 'ahmed', 'role': 'patient'} [in C:\xampp\htdocs\INFO\app.py:2068]
+2025-10-30 23:41:10,069 INFO: Successfully loaded dashboard for patient: ahmed [in C:\xampp\htdocs\INFO\app.py:2146]
+2025-10-31 02:42:08,039 ERROR: Error analyzing MRI image: Model file not found: model/mri_brain_tumor.h5 [in C:\xampp\htdocs\INFO\app.py:2325]
+2025-10-31 02:42:08,054 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 26, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 14, in _get_model
+    raise FileNotFoundError(f"Model file not found: {model_path}")
+FileNotFoundError: Model file not found: model/mri_brain_tumor.h5
+ [in C:\xampp\htdocs\INFO\app.py:2326]
+2025-10-31 03:05:32,159 ERROR: Model file missing: Model file not found: C:\xampp\htdocs\INFO\model\mri_brain_tumor.h5
+Please ensure the MRI brain tumor detection model is placed in: C:\xampp\htdocs\INFO\model
+Expected file: mri_brain_tumor.h5 [in C:\xampp\htdocs\INFO\app.py:2325]
+2025-10-31 03:05:32,181 ERROR: Traceback (most recent call last):
+  File "C:\xampp\htdocs\INFO\app.py", line 2319, in patient_radiology
+    result, conf = analyze_mri_image(stored_path)
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 34, in analyze_mri_image
+    model = _get_model()
+  File "C:\xampp\htdocs\INFO\mri_analysis.py", line 18, in _get_model
+    raise FileNotFoundError(
+FileNotFoundError: Model file not found: C:\xampp\htdocs\INFO\model\mri_brain_tumor.h5
+Please ensure the MRI brain tumor detection model is placed in: C:\xampp\htdocs\INFO\model
+Expected file: mri_brain_tumor.h5
+ [in C:\xampp\htdocs\INFO\app.py:2326]

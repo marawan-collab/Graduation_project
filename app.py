@@ -15,6 +15,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import hashlib
 import re
+import shutil
 
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.contrib.github import make_github_blueprint, github
@@ -22,6 +23,18 @@ from flask_dance.contrib.github import make_github_blueprint, github
 from crypto_utils import encrypt_file, decrypt_file, hash_file
 from error_handlers import init_error_handlers
 from mri_analysis import analyze_mri_image
+from PIL import Image, ImageDraw, ImageFont
+import io
+import zipfile
+try:
+    from PyPDF2 import PdfReader, PdfWriter
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import letter
+except Exception:
+    PdfReader = None
+    PdfWriter = None
+    canvas = None
+    letter = None
 
 # Add imports for cryptography
 from cryptography.hazmat.primitives import hashes
@@ -436,6 +449,16 @@ def two_factor():
             session['username'] = username
             session['role'] = role
             session.permanent = True  # Make session permanent
+            # Load profile fields into session for UI (e.g., first name)
+            try:
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT first_name FROM users WHERE username = %s", (username,))
+                name_row = cur.fetchone()
+                cur.close()
+                if name_row and name_row[0]:
+                    session['first_name'] = name_row[0]
+            except Exception:
+                pass
             log_action(username, 'login_manual_2fa_success', f'User {username} successfully completed 2FA and logged in manually.')
             flash('Successfully logged in', 'success')
             return redirect(url_for('home'))
@@ -485,6 +508,11 @@ def google_authorized():
             session['username'] = user[1] # username
             session['role'] = user[5] # Assuming role is at index 5
             session.permanent = True
+            try:
+                # Load first name for navbar display
+                session['first_name'] = user[6] if len(user) > 6 else session.get('first_name')
+            except Exception:
+                pass
             log_action(session['username'], 'login_google_success', f'User {session["username"]} logged in successfully with Google.')
             flash('Successfully logged in with Google', 'success')
         else:
@@ -514,6 +542,7 @@ def google_authorized():
             session['username'] = username
             session['role'] = 'patient'
             session.permanent = True
+            session['first_name'] = username
             log_action(username, 'register_google', f'New user {username} registered and logged in with Google.')
             flash('Successfully registered and logged in with Google', 'success')
 
@@ -565,6 +594,16 @@ def github_authorized():
             session['username'] = user[1] # username
             session['role'] = user[5] # Assuming role is at index 5
             session.permanent = True
+            try:
+                # Load first name for navbar display
+                cur = mysql.connection.cursor()
+                cur.execute("SELECT first_name FROM users WHERE username = %s", (session['username'],))
+                name_row = cur.fetchone()
+                cur.close()
+                if name_row and name_row[0]:
+                    session['first_name'] = name_row[0]
+            except Exception:
+                pass
             log_action(session['username'], 'login_github_success', f'User {session["username"]} logged in successfully with GitHub.')
             flash('Successfully logged in with GitHub', 'success')
         else:
@@ -594,6 +633,7 @@ def github_authorized():
             session['username'] = username
             session['role'] = 'patient'
             session.permanent = True
+            session['first_name'] = username
             log_action(username, 'register_github', f'New user {username} registered and logged in with GitHub.')
             flash('Successfully registered and logged in with GitHub', 'success')
 
@@ -2298,9 +2338,35 @@ def patient_radiology():
                 flash('Only images and PDF files are allowed.', 'danger')
                 return redirect(url_for('patient_radiology'))
 
-            # Ensure directory
+            # Ensure base directory
             user_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
             os.makedirs(user_dir, exist_ok=True)
+
+            # Ensure new DB column 'folder'
+            try:
+                cur.execute("ALTER TABLE radiology_files ADD COLUMN folder VARCHAR(255) NULL")
+                mysql.connection.commit()
+            except Exception:
+                pass
+
+            # If arriving here via old POST (without folder), just redirect to folders view
+            if request.method == 'POST':
+                return redirect(url_for('patient_radiology_folders'))
+            try:
+                cur.execute("SELECT stored_filename FROM radiology_files WHERE patient_id = %s", (patient_id,))
+                old_files = [r[0] for r in cur.fetchall()]
+                for old_name in old_files:
+                    old_path = os.path.join(user_dir, old_name)
+                    try:
+                        if os.path.exists(old_path):
+                            os.remove(old_path)
+                    except Exception as e:
+                        app.logger.warning(f"Failed to remove old radiology file: {old_path} - {e}")
+                if old_files:
+                    cur.execute("DELETE FROM radiology_files WHERE patient_id = %s", (patient_id,))
+                    mysql.connection.commit()
+            except Exception as e:
+                app.logger.warning(f"Cleanup of previous radiology files failed: {e}")
 
             safe_name = secure_filename(file.filename)
             stored_name = f"{int(datetime.now().timestamp())}_{safe_name}"
@@ -2346,15 +2412,329 @@ def patient_radiology():
                 flash('Radiology file uploaded successfully.', 'success')
             return redirect(url_for('patient_radiology'))
 
-        # List existing files
+        # Redirect main radiology page to folders listing
+        return redirect(url_for('patient_radiology_folders'))
+    except Exception as e:
+        app.logger.error(f"Error in patient_radiology: {e}")
+        app.logger.error(traceback.format_exc())
+        flash('An error occurred while processing radiology files.', 'danger')
+        return redirect(url_for('patient_dashboard'))
+    finally:
+        cur.close()
+
+
+def _watermark_image(input_path: str, output_path: str, text: str = 'SECURE HEALTH'):
+    try:
+        with Image.open(input_path).convert('RGBA') as base:
+            txt = Image.new('RGBA', base.size, (255, 255, 255, 0))
+            draw = ImageDraw.Draw(txt)
+            # Font size proportional to image width
+            font_size = max(24, base.size[0] // 12)
+            try:
+                font = ImageFont.truetype('arial.ttf', font_size)
+            except Exception:
+                font = ImageFont.load_default()
+            text_w, text_h = draw.textsize(text, font=font)
+            # Center position
+            x = (base.size[0] - text_w) // 2
+            y = (base.size[1] - text_h) // 2
+            draw.text((x, y), text, font=font, fill=(255, 255, 255, 110))
+            watermarked = Image.alpha_composite(base, txt).convert('RGB')
+            watermarked.save(output_path)
+    except Exception as e:
+        app.logger.warning(f"Watermarking failed for {input_path}: {e}")
+
+
+def _watermark_pdf(input_path: str, output_path: str, text: str = 'SECURE HEALTH'):
+    if not PdfReader or not PdfWriter or not canvas:
+        # Fallback: copy without watermark
+        try:
+            import shutil
+            shutil.copyfile(input_path, output_path)
+        except Exception:
+            pass
+        return
+    try:
+        reader = PdfReader(input_path)
+        writer = PdfWriter()
+        for page in reader.pages:
+            width = float(page.mediabox.width)
+            height = float(page.mediabox.height)
+
+            packet = io.BytesIO()
+            c = canvas.Canvas(packet, pagesize=(width, height))
+            c.setFont("Helvetica", max(18, int(width / 20)))
+            c.setFillGray(0.5, alpha=0.3)
+            c.saveState()
+            c.translate(width/2, height/2)
+            c.rotate(30)
+            c.drawCentredString(0, 0, text)
+            c.restoreState()
+            c.save()
+            packet.seek(0)
+
+            wm_reader = PdfReader(packet)
+            wm_page = wm_reader.pages[0]
+            page.merge_page(wm_page)
+            writer.add_page(page)
+
+        with open(output_path, 'wb') as f:
+            writer.write(f)
+    except Exception as e:
+        app.logger.warning(f"PDF watermarking failed for {input_path}: {e}")
+
+
+def _is_file_safe(temp_path: str, ext: str) -> bool:
+    ext_l = (ext or '').lower()
+    # Basic MIME/structure checks; not a full antivirus
+    try:
+        if ext_l in {'png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'tif', 'tiff'}:
+            with Image.open(temp_path) as im:
+                im.verify()  # PIL will raise if corrupted
+            return True
+        if ext_l == 'pdf':
+            # Basic header check tolerant to leading bytes
+            with open(temp_path, 'rb') as f:
+                head = f.read(2048)
+                if b'%PDF-' not in head:
+                    return False
+            # If library is available, try parsing for extra assurance
+            if PdfReader:
+                try:
+                    reader = PdfReader(temp_path)
+                    _ = len(reader.pages)
+                except Exception:
+                    return False
+            return True
+        # Other types not allowed here
+        return False
+    except Exception as e:
+        app.logger.warning(f"Security check failed for {temp_path}: {e}")
+        return False
+
+
+@app.route('/patient/radiology/folders')
+@login_required
+def patient_radiology_folders():
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        patient_id = cur.fetchone()[0]
+
+        # Ensure column exists
+        try:
+            cur.execute("ALTER TABLE radiology_files ADD COLUMN folder VARCHAR(255) NULL")
+            mysql.connection.commit()
+        except Exception:
+            pass
+
+        # List folders from DB (distinct), fallback to filesystem
+        cur.execute("SELECT DISTINCT COALESCE(folder, '') FROM radiology_files WHERE patient_id = %s", (patient_id,))
+        folder_rows = [r[0] for r in cur.fetchall() if r and r[0]]
+
+        base_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        os.makedirs(base_dir, exist_ok=True)
+        fs_folders = [d for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
+        folders = sorted(set(folder_rows) | set(fs_folders))
+
+        secured = set()
+        for name in folders:
+            if os.path.exists(os.path.join(base_dir, name, 'SECURED.marker')):
+                secured.add(name)
+
+        return render_template('patient_radiology.html', folders=folders, secured_folders=secured, files=None)
+    except Exception as e:
+        app.logger.error(f"Error listing radiology folders: {e}")
+        flash('An error occurred while listing radiology folders.', 'danger')
+        return redirect(url_for('patient_dashboard'))
+    finally:
+        cur.close()
+
+
+@app.route('/patient/radiology/folder/create', methods=['POST'])
+@login_required
+def create_radiology_folder():
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    name = request.form.get('folder_name', '').strip()
+    if not name:
+        flash('Folder name is required.', 'warning')
+        return redirect(url_for('patient_radiology_folders'))
+
+    # sanitize simple
+    safe = re.sub(r'[^a-zA-Z0-9_-]+', '_', name)
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        patient_id = cur.fetchone()[0]
+        base_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        os.makedirs(os.path.join(base_dir, safe), exist_ok=True)
+        flash('Folder created.', 'success')
+        return redirect(url_for('upload_radiology_in_folder', folder=safe))
+    except Exception as e:
+        app.logger.error(f"Error creating folder: {e}")
+        flash('Could not create folder.', 'danger')
+        return redirect(url_for('patient_radiology_folders'))
+    finally:
+        cur.close()
+
+
+@app.route('/patient/radiology/folder/<path:folder>/delete', methods=['POST'])
+@login_required
+def delete_radiology_folder(folder):
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        patient_id = cur.fetchone()[0]
+        
+        # Verify folder belongs to this patient
+        cur.execute(
+            """
+            SELECT COUNT(*) FROM radiology_files 
+            WHERE patient_id = %s AND folder = %s
+            """,
+            (patient_id, folder)
+        )
+        file_count = cur.fetchone()[0]
+        
+        # Check if folder exists in filesystem even if no files in DB
+        base_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        folder_dir = os.path.join(base_dir, folder)
+        
+        if not os.path.exists(folder_dir) and file_count == 0:
+            flash('Folder not found.', 'danger')
+            return redirect(url_for('patient_radiology_folders'))
+        
+        # Delete all files from database first
+        cur.execute(
+            "DELETE FROM radiology_files WHERE patient_id = %s AND folder = %s",
+            (patient_id, folder)
+        )
+        mysql.connection.commit()
+        
+        # Delete folder directory and all its contents (including all files and SECURED.marker)
+        # This handles all files in the folder directory
+        if os.path.exists(folder_dir):
+            try:
+                shutil.rmtree(folder_dir)
+                app.logger.info(f"Deleted folder directory and all contents: {folder_dir}")
+            except Exception as e:
+                app.logger.error(f"Error deleting folder directory {folder_dir}: {e}")
+                flash('Error deleting folder directory.', 'warning')
+        
+        flash(f'Folder "{folder}" and all its contents have been deleted successfully.', 'success')
+        app.logger.info(f"Deleted radiology folder '{folder}' (Patient ID: {patient_id})")
+        
+        return redirect(url_for('patient_radiology_folders'))
+    except Exception as e:
+        app.logger.error(f"Error deleting radiology folder: {e}")
+        flash('An error occurred while deleting the folder.', 'danger')
+        return redirect(url_for('patient_radiology_folders'))
+    finally:
+        cur.close()
+
+
+@app.route('/patient/radiology/folder/<path:folder>', methods=['GET', 'POST'])
+@login_required
+def upload_radiology_in_folder(folder):
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        patient_id = cur.fetchone()[0]
+        base_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        user_dir = os.path.join(base_dir, folder)
+        os.makedirs(user_dir, exist_ok=True)
+
+        if request.method == 'POST':
+            files = request.files.getlist('files')
+            image_extensions = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'tif', 'tiff'}
+            for file in files:
+                if not file or not file.filename:
+                    continue
+                safe_name = secure_filename(file.filename)
+                ext = safe_name.rsplit('.', 1)[-1].lower() if '.' in safe_name else ''
+                stored_name = f"{int(datetime.now().timestamp())}_{safe_name}"
+                stored_path = os.path.join(user_dir, stored_name)
+                temp_path = stored_path + '.tmp'
+                file.save(temp_path)
+                # Security check
+                if not _is_file_safe(temp_path, ext):
+                    try:
+                        os.remove(temp_path)
+                    except Exception:
+                        pass
+                    flash(f'Upload blocked: {safe_name} failed integrity checks.', 'danger')
+                    continue
+                # Watermark and save final file
+                if ext in image_extensions:
+                    _watermark_image(temp_path, stored_path, text='SECURE HEALTH')
+                else:
+                    # If PDF, pre-watermark the stored copy so previews/downloads are branded
+                    if ext == 'pdf':
+                        _watermark_pdf(temp_path, stored_path, text='SECURE HEALTH')
+                    else:
+                        os.replace(temp_path, stored_path)
+                try:
+                    # Analyze if image
+                    tumor_detected = None
+                    confidence = None
+                    analysis_date = None
+                    if ext in image_extensions:
+                        try:
+                            result, conf = analyze_mri_image(stored_path)
+                            tumor_detected = result
+                            confidence = conf
+                            analysis_date = datetime.now()
+                            app.logger.info(f"MRI analysis completed: {result}, confidence: {conf}")
+                        except Exception as e:
+                            app.logger.error(f"MRI analysis failed: {e}")
+
+                    cur.execute(
+                        """
+                        INSERT INTO radiology_files (patient_id, original_filename, stored_filename, file_type, tumor_detected, confidence, analysis_date, folder)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                        """,
+                        (patient_id, file.filename, os.path.join(folder, stored_name), ext, tumor_detected, confidence, analysis_date, folder)
+                    )
+                    mysql.connection.commit()
+                    # Mark folder as secured after successful clean upload
+                    try:
+                        with open(os.path.join(user_dir, 'SECURED.marker'), 'w', encoding='utf-8') as m:
+                            m.write('secured')
+                    except Exception:
+                        pass
+                finally:
+                    try:
+                        if os.path.exists(temp_path):
+                            os.remove(temp_path)
+                    except Exception:
+                        pass
+            # Redirect back to same folder after uploads
+            return redirect(url_for('upload_radiology_in_folder', folder=folder))
+
+        # List files in this folder
         cur.execute(
             """
             SELECT id, original_filename, stored_filename, file_type, uploaded_at, tumor_detected, confidence, analysis_date
             FROM radiology_files
-            WHERE patient_id = %s
+            WHERE patient_id = %s AND folder = %s
             ORDER BY uploaded_at DESC
             """,
-            (patient_id,)
+            (patient_id, folder)
         )
         rows = cur.fetchall()
         files = [
@@ -2370,12 +2750,72 @@ def patient_radiology():
             } for r in rows
         ]
 
-        return render_template('patient_radiology.html', files=files)
+        return render_template('patient_radiology.html', files=files, folder=folder)
     except Exception as e:
-        app.logger.error(f"Error in patient_radiology: {e}")
-        app.logger.error(traceback.format_exc())
+        app.logger.error(f"Error in folder view: {e}")
         flash('An error occurred while processing radiology files.', 'danger')
-        return redirect(url_for('patient_dashboard'))
+        return redirect(url_for('patient_radiology_folders'))
+    finally:
+        cur.close()
+
+
+@app.route('/patient/radiology/folder/<path:folder>/download')
+@login_required
+def download_radiology_folder(folder):
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute("SELECT id FROM users WHERE username = %s", (session['username'],))
+        patient_id = cur.fetchone()[0]
+        base_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        folder_dir = os.path.join(base_dir, folder)
+        if not os.path.isdir(folder_dir):
+            flash('Folder not found.', 'danger')
+            return redirect(url_for('patient_radiology_folders'))
+
+        mem_zip = io.BytesIO()
+        with zipfile.ZipFile(mem_zip, mode='w', compression=zipfile.ZIP_DEFLATED) as zf:
+            cur.execute(
+                """
+                SELECT original_filename, stored_filename, file_type
+                FROM radiology_files
+                WHERE patient_id = %s AND folder = %s
+                """,
+                (patient_id, folder)
+            )
+            for original_name, stored_name, file_type in cur.fetchall():
+                try:
+                    full_path = os.path.join(base_dir, stored_name)
+                    if not os.path.exists(full_path):
+                        continue
+                    safe_name = original_name or os.path.basename(stored_name)
+                    arcname = os.path.join(folder, safe_name)
+                    if (file_type or '').lower() == 'pdf':
+                        tmp_out = full_path + '.wm.pdf'
+                        _watermark_pdf(full_path, tmp_out, text='SECURE HEALTH')
+                        if os.path.exists(tmp_out):
+                            zf.write(tmp_out, arcname=arcname)
+                            os.remove(tmp_out)
+                        else:
+                            zf.write(full_path, arcname=arcname)
+                    else:
+                        zf.write(full_path, arcname=arcname)
+                except Exception as e:
+                    app.logger.warning(f"Skipping file in zip due to error: {e}")
+
+            # Add marker file if exists
+            if os.path.exists(os.path.join(folder_dir, 'SECURED.marker')):
+                zf.writestr(os.path.join(folder, 'SECURED.marker'), 'secured')
+
+        mem_zip.seek(0)
+        return send_file(mem_zip, as_attachment=True, download_name=f'{folder}.zip', mimetype='application/zip')
+    except Exception as e:
+        app.logger.error(f"Error zipping folder: {e}")
+        flash('Could not download folder.', 'danger')
+        return redirect(url_for('patient_radiology_folders'))
     finally:
         cur.close()
 
@@ -2425,6 +2865,22 @@ def view_radiology(file_id):
         }
         mimetype = mime_types.get(file_type.lower(), 'application/octet-stream')
         
+        # If raw=1, always stream the file itself
+        if request.args.get('raw') == '1':
+            resp = send_file(path, mimetype=mimetype, as_attachment=False, download_name=original_name, conditional=True)
+            # Force inline display for PDF-capable browsers
+            try:
+                resp.headers['Content-Disposition'] = f'inline; filename="{original_name}"'
+                resp.headers['Cache-Control'] = 'private, max-age=0, must-revalidate'
+                resp.headers['Pragma'] = 'no-cache'
+                resp.headers['Accept-Ranges'] = 'bytes'
+            except Exception:
+                pass
+            return resp
+
+        # For PDFs without raw, render an embedded viewer that loads the raw file
+        if (file_type or '').lower() == 'pdf':
+            return render_template('radiology_pdf_viewer.html', file_url=url_for('view_radiology', file_id=file_id, raw=1), download_url=url_for('download_radiology', file_id=file_id))
         return send_file(path, mimetype=mimetype)
     finally:
         cur.close()
@@ -2440,7 +2896,7 @@ def download_radiology(file_id):
     try:
         cur.execute(
             """
-            SELECT rf.stored_filename, rf.original_filename, rf.patient_id
+            SELECT rf.stored_filename, rf.original_filename, rf.patient_id, rf.file_type
             FROM radiology_files rf
             JOIN users u ON rf.patient_id = u.id
             WHERE rf.id = %s AND u.username = %s
@@ -2452,16 +2908,86 @@ def download_radiology(file_id):
             flash('File not found.', 'danger')
             return redirect(url_for('patient_radiology'))
 
-        stored_name, original_name, patient_id = row
+        stored_name, original_name, patient_id, file_type = row
         user_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
         path = os.path.join(user_dir, stored_name)
         if not os.path.exists(path):
             flash('File missing on server.', 'danger')
             return redirect(url_for('patient_radiology'))
 
-        return send_file(path, as_attachment=True, download_name=original_name)
+        # Watermark PDFs on download
+        if (file_type or '').lower() == 'pdf':
+            tmp_out = path + '.wm.pdf'
+            _watermark_pdf(path, tmp_out, text='SECURED')
+            try:
+                return send_file(tmp_out, as_attachment=True, download_name=original_name)
+            finally:
+                try:
+                    if os.path.exists(tmp_out):
+                        os.remove(tmp_out)
+                except Exception:
+                    pass
+        else:
+            return send_file(path, as_attachment=True, download_name=original_name)
     finally:
         cur.close()
+
+@app.route('/patient/radiology/delete/<int:file_id>', methods=['POST'])
+@login_required
+def delete_radiology_file(file_id):
+    if session.get('role') != 'patient':
+        flash('Access denied.', 'danger')
+        return redirect(url_for('home'))
+
+    cur = mysql.connection.cursor()
+    try:
+        cur.execute(
+            """
+            SELECT rf.stored_filename, rf.original_filename, rf.patient_id, rf.folder
+            FROM radiology_files rf
+            JOIN users u ON rf.patient_id = u.id
+            WHERE rf.id = %s AND u.username = %s
+            """,
+            (file_id, session['username'])
+        )
+        row = cur.fetchone()
+        if not row:
+            flash('File not found or you do not have permission to delete it.', 'danger')
+            return redirect(url_for('patient_radiology_folders'))
+
+        stored_name, original_name, patient_id, folder = row
+        
+        # Delete file from filesystem
+        user_dir = os.path.join(app.config['UPLOAD_FOLDER'], 'radiology', str(patient_id))
+        path = os.path.join(user_dir, stored_name)
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+                app.logger.info(f"Deleted radiology file from filesystem: {path}")
+            except Exception as e:
+                app.logger.error(f"Error deleting file from filesystem {path}: {e}")
+                flash('Error deleting file from filesystem.', 'danger')
+                return redirect(url_for('upload_radiology_in_folder', folder=folder) if folder else url_for('patient_radiology_folders'))
+
+        # Delete from database
+        cur.execute("DELETE FROM radiology_files WHERE id = %s", (file_id,))
+        mysql.connection.commit()
+        
+        flash('File deleted successfully.', 'success')
+        app.logger.info(f"Deleted radiology file {original_name} (ID: {file_id}) from database")
+        
+        # Redirect back to folder view if folder exists, otherwise to folders list
+        if folder:
+            return redirect(url_for('upload_radiology_in_folder', folder=folder))
+        else:
+            return redirect(url_for('patient_radiology_folders'))
+    except Exception as e:
+        app.logger.error(f"Error deleting radiology file: {e}")
+        flash('An error occurred while deleting the file.', 'danger')
+        return redirect(url_for('patient_radiology_folders'))
+    finally:
+        cur.close()
+
 @app.route('/doctor/signed-records')
 @login_required
 def doctor_signed_records():
